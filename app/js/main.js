@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var Color = require('color');
 
-var colors = [
+var colours = [
 	{
 		name: 'violet',
 		rgb: {r: 148, g: 0, b: 211}
@@ -47,17 +47,28 @@ function getRandom(list){
 	return ret;
 }
 
-function mixColors(list){
+function mixColours(list){
 	return _.reduce(list, function(item1, item2){
 		return Color(item1.rgb).mix(Color(item2.rgb));
 	});
 }
 
+function getUnusedItems(list, selected){
+	log('list')
+	log(list)
+	log('selected')
+	log(selected)
 
-var mix = mixColors(getFewRandom(colors, 2));
+	return _.differenceWith(list, selected, _.isEqual);
+}
 
-var pastel = document.getElementsByClassName('pastel')[0];
-pastel.style.backgroundColor = mix.rgbString();
+var selectedColours = getFewRandom(colours, 2);
+var mix = mixColours(selectedColours);
+
+log(getUnusedItems(colours, selectedColours));
+
+// var pastel = document.getElementsByClassName('pastel')[0];
+// pastel.style.backgroundColor = mix.rgbString();
 
 function log(args) {
     console.log(args)
