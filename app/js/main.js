@@ -48,75 +48,17 @@ function getRandom(list){
 }
 
 function mixColors(list){
-	// return _.reduce(list, function(item1, item2){
-		var clr1 = Color(list[2].rgb);
-		var clr2 = Color(list[6].rgb);
-		var mx = clr1.mix(Color(clr2.rgb));
-
-		var mix = mx.rgb();
-		log(clr1.rgb())
-		log(clr2.rgb())
-
-		// log('clr1===');
-		// log(clr1.rgb());
-		// log('clr2*****');
-		// log(clr2.rgb());
-		// log('mix*****');
-		log(mix);
-		return mix;
-	// });
+	return _.reduce(list, function(item1, item2){
+		return Color(item1.rgb).mix(Color(item2.rgb));
+	});
 }
 
-mixColors(colors);
 
-// var mixx = mixColors([ colors[2], colors[6] ]);
-// log(mixx)
-// var clrRed = Color(getRandom(colors).rgb);
-// var clrBlue = Color(getRandom(colors).rgb);
-// var mix = clrRed.mix(Color(clrBlue.rgb())).lighten(0.5);
-// var pastel = document.getElementsByClassName('pastel')[0];
-// pastel.style.backgroundColor = mixx.rgbString();
+var mix = mixColors(getFewRandom(colors, 2));
+
+var pastel = document.getElementsByClassName('pastel')[0];
+pastel.style.backgroundColor = mix.rgbString();
 
 function log(args) {
     console.log(args)
 }
-
-// log(getFewRandom(colors, 5));
-
-var list = [1,2,3,4,5, 6];
-// _.reduce(list, function(sum,n){
-// 	log('sum: ' + sum);
-// 	log('n: ' + n);
-// 	return sum + n;
-// });
-
-function mixit(num1, num2){
-	return num1+0+num2;
-}
-
-// function mixEm(list){
-// 	return _.reduce(list, function(item1, item2, key){
-// 		var mix = mixit(item1,item2);
-// 		// log('************item1');
-// 		// log(item1);
-// 		// log('************item2');
-// 		// log(item2);
-// 		// log('************mix');
-// 		// log(mix);
-// 		return mix;
-// 	});
-// }
-
-// log('ave:'+mixEm(list))
-// ************item1
-// 1
-// ************item2
-// 2
-// ************mix
-// 1#2
-// ************item1
-// 1#2
-// ************item2
-// 3
-// ************mix
-// 1#2#3
