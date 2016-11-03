@@ -1,75 +1,48 @@
-'use strict';
-var _ = require('lodash');
-var Color = require('color');
+var ColorMixer = require('./ColorMixer.js');
+var cm = new ColorMixer();
 
 var colours = [
-	{
-		name: 'violet',
-		rgb: {r: 148, g: 0, b: 211}
-	},
-	{
-		name: 'indigo',
-		rgb: {r: 75, g: 0, b: 130}
-	},
-	{
-		name: 'blue',
-		rgb: {r: 0, g: 0, b: 255}
-	},
-	{
-		name: 'green',
-		rgb: {r: 0, g: 255, b: 0}
-	},
-	{
-		name: 'yellow',
-		rgb: {r: 255, g: 255, b: 0}
-	},
-	{
-		name: 'orange',
-		rgb: {r: 255, g: 127, b: 0}
-	},
-	{
-		name: 'red',
-		rgb: {r: 255, g: 0, b: 0}
-	}];
+		{
+			name: 'violet',
+			rgb: {r: 148, g: 0, b: 211}
+		},
+		{
+			name: 'indigo',
+			rgb: {r: 75, g: 0, b: 130}
+		},
+		{
+			name: 'blue',
+			rgb: {r: 0, g: 0, b: 255}
+		},
+		{
+			name: 'green',
+			rgb: {r: 0, g: 255, b: 0}
+		},
+		{
+			name: 'yellow',
+			rgb: {r: 255, g: 255, b: 0}
+		},
+		{
+			name: 'orange',
+			rgb: {r: 255, g: 127, b: 0}
+		},
+		{
+			name: 'red',
+			rgb: {r: 255, g: 0, b: 0}
+		}];
 
-function getFewRandom(list, count){
-	var list = _.clone(list);
-	return _.map(_.range(count), function(item){
-		var rand = getRandom(list);
-		list.splice(_.indexOf(list,rand),1);
-		return rand;
-	});
-}
+var selectedColours = cm.getFewRandom(colours, 2);
+var mix = cm.mixColours(selectedColours);
 
-function getRandom(list){
-	var elem = _.random(list.length - 1);
-	var ret = list.slice(elem, elem+1)[0];
-	return ret;
-}
+log(selectedColours);
 
-function mixColours(list){
-	return _.reduce(list, function(item1, item2){
-		return Color(item1.rgb).mix(Color(item2.rgb));
-	});
-}
+log(cm.getUnusedItems(colours, selectedColours));
 
-function getUnusedItems(list, selected){
-	log('list')
-	log(list)
-	log('selected')
-	log(selected)
-
-	return _.differenceWith(list, selected, _.isEqual);
-}
-
-var selectedColours = getFewRandom(colours, 2);
-var mix = mixColours(selectedColours);
-
-log(getUnusedItems(colours, selectedColours));
-
-// var pastel = document.getElementsByClassName('pastel')[0];
-// pastel.style.backgroundColor = mix.rgbString();
+var pastel = document.getElementsByClassName('pastel')[0];
+pastel.style.backgroundColor = mix.rgbString();
 
 function log(args) {
     console.log(args)
 }
+
+// var app = angular.module('app', []);
