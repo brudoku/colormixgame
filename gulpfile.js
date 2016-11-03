@@ -10,8 +10,9 @@ var clean = require('gulp-clean');
 var browserify = require('gulp-browserify');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
-var outputdir = outputdir;
-// tasks
+var outputdir = './dist/';
+var less = require('gulp-less');
+
 gulp.task('lint', function() {
   gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
     .pipe(jshint())
@@ -23,6 +24,11 @@ gulp.task('clean', function() {
       .pipe(clean({force: true}));
     gulp.src('./app/js/bundled.js')
       .pipe(clean({force: true}));
+});
+gulp.task('less', function () {
+  return gulp.src('./app/css/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('./app/css'));
 });
 gulp.task('minify-css', function() {
   var opts = {comments:true,spare:true};
@@ -72,8 +78,8 @@ gulp.task('connectDist', function () {
   });
 });
 gulp.task('watch', function() {
-  gulp.watch('./app/js/*.js', ['reloadconnect', 'browserify']);
-  gulp.watch('./app/css/*.*', ['reloadconnect']);
+  gulp.watch('./app/js/*.js', ['browserify', 'reloadconnect']);
+  gulp.watch('./app/css/*.*', ['less', 'reloadconnect']);
   gulp.watch('./app/*.html', ['reloadconnect']);
 });
 gulp.task('browserify', function() {
