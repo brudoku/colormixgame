@@ -6,16 +6,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>gulp-browserify-angularjs-d3-lodash-seed</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="./css/main.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <!-- styles-->
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/skeleton.css">
+    <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
     <div ng-app="app">
-      <div class="container">
-        <h1>gulp-browserify-angularjs-d3-lodash-seed</h1>
-
-        <div class="pastel">background colour set by mixing red and blue using <a href="https://www.npmjs.com/package/color">npm color</a></div>
-
+      <div class="container" ng-controller="mixer">
+        <div class="row">
+          <h1>COLR MIXR</h1>
+          <ul>
+            <li ng-repeat="clr in colours">{{clr.name}}</li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- scripts -->
