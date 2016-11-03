@@ -1,7 +1,11 @@
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
+var app = angular.module('app', []);
+app.controller('mixer', ['$scope', mainCtrl]);
 
-var colours = [
+function mainCtrl($scope){
+
+	$scope.colours = [
 		{
 			name: 'violet',
 			rgb: {r: 148, g: 0, b: 211}
@@ -31,18 +35,11 @@ var colours = [
 			rgb: {r: 255, g: 0, b: 0}
 		}];
 
-var selectedColours = cm.getFewRandom(colours, 2);
-var mix = cm.mixColours(selectedColours);
-
-log(selectedColours);
-
-log(cm.getUnusedItems(colours, selectedColours));
-
-var pastel = document.getElementsByClassName('pastel')[0];
-pastel.style.backgroundColor = mix.rgbString();
+	// $scope.selectedColours = cm.getFewRandom($scope.colours, 2);
+	// $scope.mix = cm.mixColours($scope.selectedColours);
+	// $scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
+}
 
 function log(args) {
     console.log(args)
 }
-
-// var app = angular.module('app', []);
