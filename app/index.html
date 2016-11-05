@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>gulp-browserify-angularjs-d3-lodash-seed</title>
+    <title>COLR MIXR</title>
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <!-- styles-->
     <link rel="stylesheet" href="./css/normalize.css">
@@ -15,10 +15,12 @@
   <body>
     <div ng-app="app">
       <div class="container" ng-controller="mixer">
-        <div class="row">
+        <div class="row selection">
           <h1>COLR MIXR</h1>
           <ul>
-            <li ng-repeat="clr in colours">{{clr.name}}</li>
+            <li ng-repeat="clr in colours">
+              <set-colour rgb="{{clr}}"></set-colour>
+            </li>
           </ul>
         </div>
       </div>

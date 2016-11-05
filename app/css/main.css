@@ -1,1 +1,18 @@
-/* css */
+body {
+  background-color: #363636;
+}
+h1 {
+  color: #fff;
+}
+li {
+  list-style-type: none;
+}
+.clr-item {
+  width: 75px;
+  height: 75px;
+  display: inline-block;
+  border: solid 1px #f4f4f4;
+}
+.selection li {
+  display: inline;
+}

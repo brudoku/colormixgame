@@ -2,6 +2,17 @@ var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
 var app = angular.module('app', []);
 app.controller('mixer', ['$scope', mainCtrl]);
+app.directive('setColour', function(){
+	return {
+        scope: {clr: '='},
+        template: '<div class="clr-item">{{clr.name}}</div>',
+		link: function(scope, elem, attrs){
+			var $elem = angular.element(elem);
+			var rgb = toRgbString(JSON.parse(attrs.rgb).rgb)
+			$elem.css('background-color', rgb);
+		}
+    }
+});
 
 function mainCtrl($scope){
 
@@ -42,4 +53,9 @@ function mainCtrl($scope){
 
 function log(args) {
     console.log(args)
+}
+
+
+function toRgbString(rgbObj) {
+	return 'rgb(' + rgbObj.r + ',' + rgbObj.g  + ',' +  rgbObj.b + ')'
 }

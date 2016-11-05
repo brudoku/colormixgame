@@ -26,6 +26,7 @@ gulp.task('clean', function() {
       .pipe(clean({force: true}));
 });
 gulp.task('less', function () {
+  console.log('less!!');
   return gulp.src('./app/css/*.less')
     .pipe(less())
     .pipe(gulp.dest('./app/css'));
@@ -105,7 +106,7 @@ gulp.task('browserifyDist', function() {
 gulp.task('default', function() {
   runSequence(
     ['clean'],
-    ['connect', 'watch', 'browserify']
+    ['less', 'connect', 'watch', 'browserify']
   );
 });
 // *** build task *** //
