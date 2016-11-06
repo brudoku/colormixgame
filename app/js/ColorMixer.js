@@ -23,11 +23,15 @@ ColorMixer.prototype = {
 	},
 	mixColours: function(list){
 		return _.reduce(list, function(item1, item2){
-			return Color(item1.rgb).mix(Color(item2.rgb));
+			// console.log(Color(item1.rgb).mix(Color(item2.rgb)).rgb());
+			return {rgb: Color(item1.rgb).mix(Color(item2.rgb)).rgb() } ;
 		});
 	},
 	getUnusedItems: function(list, selected){
 		return _.differenceWith(list, selected, _.isEqual);
+	},
+	getRGBString: function(rgbObj){
+		// return 
 	}
 }
 

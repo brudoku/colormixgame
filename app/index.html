@@ -19,9 +19,25 @@
           <h1>COLR MIXR</h1>
           <ul>
             <li ng-repeat="clr in colours">
-              <set-colour rgb="{{clr}}"></set-colour>
+              <set-colour rgb="{{clr}}" ng-click="test(clr)"></set-colour>
             </li>
           </ul>
+          <h1>Unselected</h1>
+          <ul>
+            <li ng-repeat="clr in unselectedColours">
+              <set-colour rgb="{{clr}}" ng-click="test(clr)"></set-colour>
+            </li>
+          </ul>
+          <h1>Selected</h1>
+          <ul>
+            <li ng-repeat="clr in selectedColours">
+              <set-colour rgb="{{clr}}" ng-click="test(clr)"></set-colour>
+            </li>
+          </ul>
+          <h1>Mix</h1>
+
+          <div class="clr-item mix" update-colour></div>
+          <button ng-click="mixColours()"></button>
         </div>
       </div>
     </div>
