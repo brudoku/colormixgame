@@ -24,13 +24,23 @@ ColorMixer.prototype = {
 		return ret;
 	},
 	mixColours: function(list){
-		return _.reduce(list, function(item1, item2){
-			var firstColor = rgb2ryb(item1.colorObj.rgbArray());
-			var secondColor = rgb2ryb(item2.colorObj.rgbArray());
-			var rybMix = rybColorMixer.mix(firstColor, secondColor,  { result: "rgb", hex: false });
-			return { colorObj: Color().rgb(rybMix) };
-		});
+		var hexList = _.map(list, function(item){
+			return rgb2ryb(item.colorObj.rgbArray());
+		})
+		var mixed = rybColorMixer.mix(hexList,  { result: "rgb", hex: false });
+		return { colorObj: Color().rgb(mixed) };
 	},
+	/*
+		mixColours: function(list){
+			return _.reduce(list, function(item1, item2){
+				var firstColor = rgb2ryb(item1.colorObj.rgbArray());
+				var secondColor = rgb2ryb(item2.colorObj.rgbArray());
+				var rybMix = rybColorMixer.mix(firstColor, secondColor,  { result: "rgb", hex: false });
+				return { colorObj: Color().rgb(rybMix) };
+			});
+		},
+	*/
+
 	getUnusedItems: function(list, selected){
 		return _.differenceWith(list, selected, _.isEqual);
 	},

@@ -68,11 +68,10 @@ function mainCtrl($scope){
 		{
 			name: 'red',
 			rgb: {r: 255, g: 0, b: 0}
-		}
-		/*,
+		}/*,
 		{
 			name: 'white',
-			rgb: {r: 255, g: 255, b: 255}
+			rgb: {r: 0, g: 0, b: 0}
 		}*/
 		];
 
@@ -85,13 +84,13 @@ function mainCtrl($scope){
 	});
 
 	$scope.mixColours = function(){
-		// var red = $scope.colours[6];
-		// var blue = $scope.colours[2];
-		// var white = $scope.colours[7];
-		// var yellow = $scope.colours[4];
+		var red = $scope.colours[6];
+		var blue = $scope.colours[2];
+		var white = $scope.colours[7];
+		var yellow = $scope.colours[4];
 
 		// var temp = cm.mixColours([blue, yellow]);
-		// $scope.mixedClr = cm.mixColours([blue, yellow]);
+		// $scope.mixedClr = cm.mixColours([red, blue, yellow]);
 		$scope.selectedColours = cm.getFewRandom($scope.colours, 3);
 		$scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
 		$scope.mixedClr = cm.mixColours($scope.selectedColours);
