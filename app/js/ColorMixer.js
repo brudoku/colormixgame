@@ -1,7 +1,9 @@
 'use strict';
 var _ = require('lodash');
 var Color = require('color');
-
+var rgb2ryb = require('rgb2ryb');
+var rybColorMixer = require('ryb-color-mixer');
+var _ = require('lodash');
 var ColorMixer = function(){
 	return this;
 }
@@ -23,15 +25,17 @@ ColorMixer.prototype = {
 	},
 	mixColours: function(list){
 		return _.reduce(list, function(item1, item2){
-			// console.log(Color(item1.rgb).mix(Color(item2.rgb)).rgb());
-			return {rgb: Color(item1.rgb).mix(Color(item2.rgb)).rgb() } ;
+			var firstColor = rgb2ryb(item1.colorObj.rgbArray());
+			var secondColor = rgb2ryb(item2.colorObj.rgbArray());
+			var rybMix = rybColorMixer.mix(firstColor, secondColor,  { result: "rgb", hex: false });
+			return { colorObj: Color().rgb(rybMix) };
 		});
 	},
 	getUnusedItems: function(list, selected){
 		return _.differenceWith(list, selected, _.isEqual);
 	},
-	getRGBString: function(rgbObj){
-		// return 
+	getColorObject: function(rgbObj){
+		return Color(rgbObj);
 	}
 }
 

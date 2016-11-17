@@ -1,5 +1,7 @@
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
+var _ = require('lodash');
+var angular = require('angular');
 var app = angular.module('app', []);
 app.controller('mixer', ['$scope', mainCtrl]);
 app.directive('setColour', function(){
@@ -19,7 +21,6 @@ app.directive('setColour', function(){
         // },
 		link: function(scope, tElem, tAttrs){
 			var $elem = angular.element(tElem);
-			// $elem.addClass('classsss');
 			var rgb = toRgbString(JSON.parse(tAttrs.rgb).rgb);
 			$elem.find('div').css('background-color', rgb);
 		}
@@ -27,7 +28,6 @@ app.directive('setColour', function(){
 });
 app.directive('updateColour', function(){
 	return {
-        scope: {mixedClr: '='},
 		link: function(scope, tElem, tAttrs){
 			var $elem = angular.element(tElem);
 			scope.$on('update', function(evt, args){
@@ -40,26 +40,22 @@ function mainCtrl($scope){
 	$scope.test = function(clr){
 		console.log('clr: ' + clr.name);
 	}
-	$scope.colours = [
+	var colours = [
 		{
 			name: 'violet',
 			rgb: {r: 148, g: 0, b: 211}
-			// rgb: {r: 255, g: 0, b: 0}
 		},
 		{
 			name: 'indigo',
 			rgb: {r: 75, g: 0, b: 130}
-			// rgb: {r: 0, g: 0, b: 255}
 		},
 		{
 			name: 'blue',
 			rgb: {r: 0, g: 0, b: 255}
-			// rgb: {r: 0, g: 0, b: 0}
 		},
 		{
 			name: 'green',
 			rgb: {r: 0, g: 255, b: 0}
-			// rgb: {r: 255, g: 255, b: 255}
 		},
 		{
 			name: 'yellow',
@@ -72,17 +68,41 @@ function mainCtrl($scope){
 		{
 			name: 'red',
 			rgb: {r: 255, g: 0, b: 0}
-		}];
+		}
+		/*,
+		{
+			name: 'white',
+			rgb: {r: 255, g: 255, b: 255}
+		}*/
+		];
+
+	var coloursObj = _.map(colours, function(elem){
+		return cm.getColorObject(elem.rgb);
+	});
+
+	$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
+	    return _.defaults({ colorObj: value }, item);
+	});
 
 	$scope.mixColours = function(){
-		$scope.selectedColours = cm.getFewRandom($scope.colours, 5);
+		// var red = $scope.colours[6];
+		// var blue = $scope.colours[2];
+		// var white = $scope.colours[7];
+		// var yellow = $scope.colours[4];
+
+		// var temp = cm.mixColours([blue, yellow]);
+		// $scope.mixedClr = cm.mixColours([blue, yellow]);
+		$scope.selectedColours = cm.getFewRandom($scope.colours, 3);
 		$scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
 		$scope.mixedClr = cm.mixColours($scope.selectedColours);
-		log(toRgbString($scope.mixedClr.rgb));
-        $scope.$broadcast("update", toRgbString($scope.mixedClr.rgb));
+        $scope.$broadcast("update", $scope.mixedClr.colorObj.rgbString());
 	}
-	// $scope.selectedColours = cm.getFewRandom($scope.colours, 2);
-	// $scope.mix = cm.mixColours($scope.selectedColours);
+
+	function shuffle(o) {
+		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		return o;
+	}
+
 }
 
 function log(args) {
