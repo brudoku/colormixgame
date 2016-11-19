@@ -1,9 +1,10 @@
 'use strict';
-var _ = require('lodash');
+// var _ = require('lodash');
 var Color = require('color');
 var rgb2ryb = require('rgb2ryb');
 var rybColorMixer = require('ryb-color-mixer');
-var _ = require('lodash');
+var _ = require('./lodash.custom.min.js');
+
 var ColorMixer = function(){
 	return this;
 }

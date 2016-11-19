@@ -1,7 +1,10 @@
+'use strict';
+
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-var _ = require('lodash');
-var angular = require('angular');
+var _ = require('./lodash.custom.min.js');
+// var _ = require('lodash');
+// var angular = require('angular');
 var app = angular.module('app', []);
 app.controller('mixer', ['$scope', mainCtrl]);
 app.directive('setColour', function(){

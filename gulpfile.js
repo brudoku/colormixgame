@@ -10,7 +10,7 @@ var clean = require('gulp-clean');
 var browserify = require('gulp-browserify');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
-var outputdir = './dist/';
+var outputdir = './app/js';
 var less = require('gulp-less');
 
 gulp.task('lint', function() {
@@ -26,7 +26,6 @@ gulp.task('clean', function() {
       .pipe(clean({force: true}));
 });
 gulp.task('less', function () {
-  console.log('less!!');
   return gulp.src('./app/css/*.less')
     .pipe(less())
     .pipe(gulp.dest('./app/css'));
@@ -37,15 +36,7 @@ gulp.task('minify-css', function() {
     .pipe(minifyCSS(opts))
     .pipe(gulp.dest(outputdir));
 });
-gulp.task('minify-js', function() {
-  gulp.src(['app/**/*.js', '!app/bower_components/**'])
-    .pipe(uglify({
-      // inSourceMap:
-      // outSourceMap: "app.js.map"
-    }))
-    .pipe(gulp.dest(outputdir))
-    .pipe(connect.reload())
-});
+
 gulp.task('babel', function() {
     gulp.src('app/js/main.js')
       .pipe(babel({
@@ -90,8 +81,10 @@ gulp.task('browserify', function() {
     debug: true
   }))
   .pipe(concat('bundled.js'))
+  .pipe(uglify('bundled.js'))
   .pipe(gulp.dest('./app/js'));
 });
+
 gulp.task('browserifyDist', function() {
   gulp.src(['app/js/main.js'])
   .pipe(browserify({
