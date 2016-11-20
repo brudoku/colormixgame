@@ -2,15 +2,15 @@
 
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-var _ = require('./lodash.custom.min.js');
-// var _ = require('lodash');
+// var _ = require('./lodash.custom.min.js');
+var _ = require('lodash');
 // var angular = require('angular');
 var app = angular.module('app', []);
 app.controller('mixer', ['$scope', mainCtrl]);
 app.directive('setColour', function(){
 	return {
         scope: {clr: '='},
-        template: '<div class="clr-item">{{clr.name}}</div>',
+        template: '<div ng-click="test(clr)" class="clr-item">{{clr.name}}</div>',
         // compile: function(tElem, tAttrs){
         	// log('compile attrs');
    //      	log(tAttrs);
@@ -40,8 +40,12 @@ app.directive('updateColour', function(){
     }
 });
 function mainCtrl($scope){
+
+	$scope.selectedColours = [];
+	// $scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
+
 	$scope.test = function(clr){
-		console.log('clr: ' + clr.name);
+		$scope.addColour(clr);
 	}
 	var colours = [
 		{
@@ -85,19 +89,25 @@ function mainCtrl($scope){
 	$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
 	    return _.defaults({ colorObj: value }, item);
 	});
-
-	$scope.mixColours = function(){
-		var red = $scope.colours[6];
-		var blue = $scope.colours[2];
-		var white = $scope.colours[7];
-		var yellow = $scope.colours[4];
-
-		// var temp = cm.mixColours([blue, yellow]);
-		// $scope.mixedClr = cm.mixColours([red, blue, yellow]);
-		$scope.selectedColours = cm.getFewRandom($scope.colours, 3);
+	$scope.addColour = function(clrObj){
+		if( _.includes($scope.selectedColours, clrObj) ) return;
+		$scope.selectedColours.push(clrObj);
 		$scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
+
+		//first colour selected, nothing to mix it with!
+		if($scope.selectedColours.length == 1){
+			$scope.$broadcast("update", clrObj.colorObj.rgbString());
+		} else {
+			$scope.mixedClr = cm.mixColours($scope.selectedColours);
+	        $scope.$broadcast("update", $scope.mixedClr.colorObj.rgbString());
+		}
+
+
+	}
+	$scope.mixColours = function(){
 		$scope.mixedClr = cm.mixColours($scope.selectedColours);
         $scope.$broadcast("update", $scope.mixedClr.colorObj.rgbString());
+		// $scope.selectedColours = cm.getFewRandom($scope.colours, 3);
 	}
 
 	function shuffle(o) {

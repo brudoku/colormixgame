@@ -10,9 +10,24 @@ li {
 .clr-item {
   width: 75px;
   height: 75px;
-  display: inline-block;
   border: solid 1px #f4f4f4;
 }
 .selection li {
-  display: inline;
+  display: inline-block;
+}
+.mix {
+  width: 475px;
+}
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #ddd;
+  border-color: #eee;
 }
