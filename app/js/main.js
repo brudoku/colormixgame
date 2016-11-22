@@ -6,14 +6,10 @@ var _ = require('lodash');
 // var _ = require('./lodash.custom.min.js');
 
 var app = angular.module('app', []);
-app.controller('mixer', ['$scope', '$timeout', mainCtrl]);
+app.controller('mixer', ['$scope', '$timeout', '$animate', mainCtrl]);
 app.directive('setColour', function(){
 	return {
         scope: {clr: '='},
-     //    template: '<div class="switch clr-item">
-					// <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
-  			// 		<label for="cmn-toggle-1"></label>
-					// </div>',
 		link: function(scope, tElem, tAttrs){
 			var $elem = angular.element(tElem);
 			var rgb = toRgbString(JSON.parse(tAttrs.rgb).rgb);
@@ -28,9 +24,21 @@ app.directive('updateColour', function(){
 			scope.$on('update', function(evt, args){
 				$elem.css('background-color', args);
 			})
+			// scope.$watch('mixedClr', function(evt, args){
+			// 	log(args);
+			// 	$elem.css('background-color', args);
+			// }, true)
 		}
     }
 });
+app.animation('.clr-item', function (){
+	return {
+	    enter: function (element, done){
+			log('enter');
+	    }
+	}
+});
+
 
 function mainCtrl($scope, $timeout){
 
@@ -69,16 +77,15 @@ function mainCtrl($scope, $timeout){
 		return cm.getColorObject(elem.rgb);
 	});
 
+	$scope.defaultColour = cm.getColorObject({r: 0, g: 0, b: 0}).rgbString();
+
 	$scope.init = function(){
 		$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
 		    return _.defaults({ colorObj: value, isSelected: false }, item);
 		});
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
-		$scope.mixedClr = null;
-	}
-
-	$scope.updateData = function(clrObj){
+	    $scope.$broadcast("update", $scope.defaultColour);
 	}
 
 	$scope.addColour = function(clrObj){
@@ -91,15 +98,13 @@ function mainCtrl($scope, $timeout){
 		if($scope.selectedColours.length == 1){
 			$scope.$broadcast("update", clrObj.colorObj.rgbString());
 		} else {
-			$scope.mixedClr = cm.mixColours($scope.selectedColours);
-	        $scope.$broadcast("update", $scope.mixedClr.colorObj.rgbString());
+	        $scope.$broadcast("update", cm.mixColours($scope.selectedColours).colorObj.rgbString());
 		}
 	}
+
 	$scope.init();
 
-	$scope.$watch('colours', function(e){
-		log(e)
-	});
+	$scope.$watch('colours', function(e){});
 
 }
 

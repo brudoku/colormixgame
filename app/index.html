@@ -32,9 +32,9 @@
 <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
 <label for="cmn-toggle-1">label</label>
  -->
-<!--           <h1>Unselected</h1>
+          <h1>Unselected</h1>
           <ul>
-            <li ng-repeat="clr in unselectedColours">
+            <li ng-repeat="clr in unselectedColours" class="repeated">
               <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
                 <div class="clr-item">{{clr.name}}</div>
 
@@ -43,14 +43,14 @@
           </ul>
           <h1>Selected</h1>
           <ul>
-            <li ng-repeat="clr in selectedColours">
+            <li ng-repeat="clr in selectedColours" class="repeated">
               <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
                 <div class="clr-item">{{clr.name}}</div>
             </set-colour>
             </li>
           </ul>
           <h1>Mix</h1>
- -->
+
           <div class="clr-item mix" update-colour></div>
           <button ng-click="init()">button</button>
         </div>
@@ -59,6 +59,8 @@
     <!-- scripts -->
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
     <script src="./js/snabbt.min.js"></script>
 
     <!--
