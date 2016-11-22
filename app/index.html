@@ -19,31 +19,48 @@
           <h1>COLR MIXR</h1>
           <ul>
             <li ng-repeat="clr in colours">
-              <set-colour rgb="{{clr}}" ng-click="test(clr)"></set-colour>
+              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
+                <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
+              </set-colour>
+<!--               <set-colour rgb="{{clr}}" ng-click="addColour(clr)" ng-class="{{clr.isSelected}}">
+                <div ng-class="{isSelected: 'highlight'}" class="switch clr-item">{{clr.name}}</div>
+              </set-colour> -->
             </li>
           </ul>
-          <h1>Unselected</h1>
+
+<!--
+<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+<label for="cmn-toggle-1">label</label>
+ -->
+<!--           <h1>Unselected</h1>
           <ul>
             <li ng-repeat="clr in unselectedColours">
-              <set-colour rgb="{{clr}}" ng-click="test(clr)"></set-colour>
+              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
+                <div class="clr-item">{{clr.name}}</div>
+
+            </set-colour>
             </li>
           </ul>
           <h1>Selected</h1>
           <ul>
             <li ng-repeat="clr in selectedColours">
-              <set-colour rgb="{{clr}}" ng-click="test(clr)"></set-colour>
+              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
+                <div class="clr-item">{{clr.name}}</div>
+            </set-colour>
             </li>
           </ul>
           <h1>Mix</h1>
-
+ -->
           <div class="clr-item mix" update-colour></div>
-          <button ng-click="mixColours()">button</button>
+          <button ng-click="init()">button</button>
         </div>
       </div>
     </div>
     <!-- scripts -->
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="./js/snabbt.min.js"></script>
+
     <!--
     <script src="bower_components/lodash/lodash.js"></script>
     -->

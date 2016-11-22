@@ -2,26 +2,18 @@
 
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-// var _ = require('./lodash.custom.min.js');
 var _ = require('lodash');
-// var angular = require('angular');
+// var _ = require('./lodash.custom.min.js');
+
 var app = angular.module('app', []);
-app.controller('mixer', ['$scope', mainCtrl]);
+app.controller('mixer', ['$scope', '$timeout', mainCtrl]);
 app.directive('setColour', function(){
 	return {
         scope: {clr: '='},
-        template: '<div ng-click="test(clr)" class="clr-item">{{clr.name}}</div>',
-        // compile: function(tElem, tAttrs){
-        	// log('compile attrs');
-   //      	log(tAttrs);
-   //      	log('tElem');
-   //      	log(tElem);
-			// var $elem = angular.element(tElem);
-   //      	log('tElem 2');
-   //      	log(tElem);
-   //      	log('link attrs');
-   //      	log(attrs);
-        // },
+     //    template: '<div class="switch clr-item">
+					// <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+  			// 		<label for="cmn-toggle-1"></label>
+					// </div>',
 		link: function(scope, tElem, tAttrs){
 			var $elem = angular.element(tElem);
 			var rgb = toRgbString(JSON.parse(tAttrs.rgb).rgb);
@@ -39,14 +31,9 @@ app.directive('updateColour', function(){
 		}
     }
 });
-function mainCtrl($scope){
 
-	$scope.selectedColours = [];
-	// $scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
+function mainCtrl($scope, $timeout){
 
-	$scope.test = function(clr){
-		$scope.addColour(clr);
-	}
 	var colours = [
 		{
 			name: 'violet',
@@ -75,22 +62,28 @@ function mainCtrl($scope){
 		{
 			name: 'red',
 			rgb: {r: 255, g: 0, b: 0}
-		}/*,
-		{
-			name: 'white',
-			rgb: {r: 0, g: 0, b: 0}
-		}*/
+		}
 		];
 
 	var coloursObj = _.map(colours, function(elem){
 		return cm.getColorObject(elem.rgb);
 	});
 
-	$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
-	    return _.defaults({ colorObj: value }, item);
-	});
+	$scope.init = function(){
+		$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
+		    return _.defaults({ colorObj: value, isSelected: false }, item);
+		});
+		$scope.selectedColours = [];
+		$scope.unselectedColours = [];
+		$scope.mixedClr = null;
+	}
+
+	$scope.updateData = function(clrObj){
+	}
+
 	$scope.addColour = function(clrObj){
 		if( _.includes($scope.selectedColours, clrObj) ) return;
+		clrObj.isSelected = true;
 		$scope.selectedColours.push(clrObj);
 		$scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
 
@@ -101,26 +94,18 @@ function mainCtrl($scope){
 			$scope.mixedClr = cm.mixColours($scope.selectedColours);
 	        $scope.$broadcast("update", $scope.mixedClr.colorObj.rgbString());
 		}
-
-
 	}
-	$scope.mixColours = function(){
-		$scope.mixedClr = cm.mixColours($scope.selectedColours);
-        $scope.$broadcast("update", $scope.mixedClr.colorObj.rgbString());
-		// $scope.selectedColours = cm.getFewRandom($scope.colours, 3);
-	}
+	$scope.init();
 
-	function shuffle(o) {
-		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-		return o;
-	}
+	$scope.$watch('colours', function(e){
+		log(e)
+	});
 
 }
 
 function log(args) {
     console.log(args)
 }
-
 
 function toRgbString(rgbObj) {
 	return 'rgb(' + rgbObj.r + ',' + rgbObj.g  + ',' +  rgbObj.b + ')'

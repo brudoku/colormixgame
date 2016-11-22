@@ -31,3 +31,19 @@ input[type="button"]:focus {
   color: #ddd;
   border-color: #eee;
 }
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+.highlight {
+  -webkit-transition: 200ms ease;
+  border: solid 8px red;
+}
