@@ -5,8 +5,8 @@ var cm = new ColorMixer();
 var _ = require('lodash');
 // var _ = require('./lodash.custom.min.js');
 
-var app = angular.module('app', []);
-app.controller('mixer', ['$scope', '$timeout', '$animate', mainCtrl]);
+var app = angular.module('app', ['ngAnimate']);
+app.controller('mixer', ['$scope', '$timeout', mainCtrl]);
 app.directive('setColour', function(){
 	return {
         scope: {clr: '='},
