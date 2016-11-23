@@ -9,7 +9,7 @@ h1{
 }
 
 .container{
-	// background-color: @xxx;
+	border: solid rgba(255,255,255,0.3) 1px;
 }
 
 li{
@@ -30,7 +30,7 @@ li{
 }
 
 .mix{
-	width: 475px;
+	// width: 475px;
 }
 
 .button:hover, button:hover, input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, .button:focus, button:focus, input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focus{
@@ -52,8 +52,9 @@ li{
 }
 
 .highlight{
-	-webkit-transition: 200ms ease;
-	border:solid 8px red;
+	-webkit-transition: 800ms ease;
+	// border:solid 8px red;
+	background: @grey !important;
 }
 
 .repeated{
@@ -61,7 +62,7 @@ li{
 }
 
 .repeated.ng-enter, .repeated.ng-move {
-  transition: all 0.5s linear;
+  transition: all 1.5s linear;
   opacity: 0;
 }
 
@@ -82,10 +83,14 @@ li{
   that has the .repeated class
 */
 .repeated.ng-leave {
-  animation: 0.5s my_animation;
+  animation: 1s my_animation;
 }
 
 @keyframes my_animation {
   from { opacity:1; }
   to { opacity:0; }
+}
+
+ul.clr-list{
+	height: 75px;
 }

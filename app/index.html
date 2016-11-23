@@ -15,45 +15,42 @@
   <body>
     <div ng-app="app">
       <div class="container" ng-controller="mixer">
-        <div class="row selection">
+  <div class="row">
+
+        <div class="eight columns selection">
           <h1>COLR MIXR</h1>
           <ul>
             <li ng-repeat="clr in colours">
               <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
                 <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
               </set-colour>
-<!--               <set-colour rgb="{{clr}}" ng-click="addColour(clr)" ng-class="{{clr.isSelected}}">
-                <div ng-class="{isSelected: 'highlight'}" class="switch clr-item">{{clr.name}}</div>
-              </set-colour> -->
-            </li>
-          </ul>
-
-<!--
-<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
-<label for="cmn-toggle-1">label</label>
- -->
-          <h1>Unselected</h1>
-          <ul>
-            <li ng-repeat="clr in unselectedColours" class="repeated">
-              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
-                <div class="clr-item">{{clr.name}}</div>
-
-            </set-colour>
             </li>
           </ul>
           <h1>Selected</h1>
-          <ul>
+          <ul class="clr-list">
             <li ng-repeat="clr in selectedColours" class="repeated">
               <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
                 <div class="clr-item">{{clr.name}}</div>
             </set-colour>
             </li>
           </ul>
-          <h1>Mix</h1>
+          <h1>Mix <span class="">{{numberOfColours}}</span> colours</h1>
+
 
           <div class="clr-item mix repeated" update-colour></div>
-          <button ng-click="init()">button</button>
+
+          <hr />
+
+          <set-colour rgb="{{dest}}">
+            <div class="clr-item">yo</div>
+          </set-colour>
+
+
+          <button ng-click="init()">Reset</button>
+
         </div>
+      </div>
+
       </div>
     </div>
     <!-- scripts -->
@@ -69,3 +66,21 @@
     <script src="./js/bundled.js"></script>
   </body>
 </html>
+<!--               <set-colour rgb="{{clr}}" ng-click="addColour(clr)" ng-class="{{clr.isSelected}}">
+                <div ng-class="{isSelected: 'highlight'}" class="switch clr-item">{{clr.name}}</div>
+              </set-colour> -->
+
+<!--
+<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+<label for="cmn-toggle-1">label</label>
+ -->
+<!--           <h1>Unselected</h1>
+          <ul>
+            <li ng-repeat="clr in unselectedColours" class="repeated">
+              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
+                <div class="clr-item">{{clr.name}}</div>
+
+            </set-colour>
+            </li>
+          </ul> 
+        -->

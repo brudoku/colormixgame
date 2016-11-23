@@ -23,7 +23,7 @@ app.directive('updateColour', function(){
 			var $elem = angular.element(tElem);
 			scope.$on('update', function(evt, args){
 				$elem.css('background-color', args);
-			})
+			});
 			// scope.$watch('mixedClr', function(evt, args){
 			// 	log(args);
 			// 	$elem.css('background-color', args);
@@ -38,7 +38,6 @@ app.animation('.clr-item', function (){
 	    }
 	}
 });
-
 
 function mainCtrl($scope, $timeout){
 
@@ -77,6 +76,7 @@ function mainCtrl($scope, $timeout){
 		return cm.getColorObject(elem.rgb);
 	});
 
+
 	$scope.defaultColour = cm.getColorObject({r: 0, g: 0, b: 0}).rgbString();
 
 	$scope.init = function(){
@@ -85,7 +85,16 @@ function mainCtrl($scope, $timeout){
 		});
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
-	    $scope.$broadcast("update", $scope.defaultColour);
+		$scope.numberOfColours = Math.floor(Math.random() * ($scope.colours.length -3) ) + 2;
+		$scope.setGoal($scope.numberOfColours);
+
+		$timeout(function() {
+		    $scope.$broadcast("update", cm.getColorObject({r: 50, g: 50, b: 50}).rgbString());
+		}, 0);
+	}
+
+	$scope.setGoal = function(count){
+		$scope.dest = {rgb: cm.getColorObject(cm.mixColours(cm.getFewRandom($scope.colours, count)).colorObj.rgb()).rgb() };
 	}
 
 	$scope.addColour = function(clrObj){
@@ -104,6 +113,7 @@ function mainCtrl($scope, $timeout){
 
 	$scope.init();
 
+
 	$scope.$watch('colours', function(e){});
 
 }
@@ -115,3 +125,8 @@ function log(args) {
 function toRgbString(rgbObj) {
 	return 'rgb(' + rgbObj.r + ',' + rgbObj.g  + ',' +  rgbObj.b + ')'
 }
+
+/*
+angular.element(tElem).find('div').css('background-color',toRgbString(JSON.parse(tAttrs.rgb).rgb));
+
+*/
