@@ -24,6 +24,9 @@ ColorMixer.prototype = {
 		var ret = list.slice(elem, elem+1)[0];
 		return ret;
 	},
+	// getColor: function(list){
+	// 	return { colorObj: Color().rgb(mixed) };
+	// },
 	mixColours: function(list){
 		var hexList = _.map(list, function(item){
 			return rgb2ryb(item.colorObj.rgbArray());

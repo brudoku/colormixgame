@@ -2,8 +2,8 @@
 
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-var _ = require('lodash');
-// var _ = require('./lodash.custom.min.js');
+// var _ = require('lodash');
+var _ = require('./lodash.custom.min.js');
 
 var app = angular.module('app', ['ngAnimate']);
 app.controller('mixer', ['$scope', '$timeout', mainCtrl]);
@@ -76,7 +76,6 @@ function mainCtrl($scope, $timeout){
 		return cm.getColorObject(elem.rgb);
 	});
 
-
 	$scope.defaultColour = cm.getColorObject({r: 0, g: 0, b: 0}).rgbString();
 
 	$scope.init = function(){
@@ -85,16 +84,17 @@ function mainCtrl($scope, $timeout){
 		});
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
-		$scope.numberOfColours = Math.floor(Math.random() * ($scope.colours.length -3) ) + 2;
+		$scope.numberOfColours = Math.floor(Math.random() * ($scope.colours.length - 3) ) + 2;
 		$scope.setGoal($scope.numberOfColours);
 
 		$timeout(function() {
-		    $scope.$broadcast("update", cm.getColorObject({r: 50, g: 50, b: 50}).rgbString());
+		    $scope.$broadcast("update", cm.getColorObject({r: 221, g: 221, b: 221}).rgbString());
 		}, 0);
 	}
 
 	$scope.setGoal = function(count){
-		$scope.dest = {rgb: cm.getColorObject(cm.mixColours(cm.getFewRandom($scope.colours, count)).colorObj.rgb()).rgb() };
+		$scope.generatedColours = cm.getFewRandom($scope.colours, count);
+		$scope.dest = {rgb: cm.getColorObject(cm.mixColours($scope.generatedColours).colorObj.rgb()).rgb() };
 	}
 
 	$scope.addColour = function(clrObj){
@@ -114,7 +114,7 @@ function mainCtrl($scope, $timeout){
 	$scope.init();
 
 
-	$scope.$watch('colours', function(e){});
+	$scope.$watch('dest', function(e){});
 
 }
 

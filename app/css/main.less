@@ -1,11 +1,13 @@
 @grey: #363636;
+@offwhite: #ddd;
 @white: #fff;
+
 body{ 
-	background-color: @grey;
+	background-color: @offwhite;
 }
 
 h1{
-	color: @white;
+	color: @grey;
 }
 
 .container{
@@ -51,10 +53,14 @@ li{
 	}
 }
 
+.full-width{
+	width: 100%;
+}
+
 .highlight{
 	-webkit-transition: 800ms ease;
 	// border:solid 8px red;
-	background: @grey !important;
+	background: @offwhite !important;
 }
 
 .repeated{
@@ -93,4 +99,8 @@ li{
 
 ul.clr-list{
 	height: 75px;
+}
+
+.align-center{
+	text-align: center;
 }

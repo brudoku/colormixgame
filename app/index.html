@@ -13,45 +13,57 @@
     <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
-    <div ng-app="app">
+  <div ng-app="app">
+
       <div class="container" ng-controller="mixer">
-  <div class="row">
+        <div class="row">
 
-        <div class="eight columns selection">
-          <h1>COLR MIXR</h1>
-          <ul>
-            <li ng-repeat="clr in colours">
-              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
-                <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
-              </set-colour>
-            </li>
-          </ul>
-          <h1>Selected</h1>
-          <ul class="clr-list">
-            <li ng-repeat="clr in selectedColours" class="repeated">
-              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
-                <div class="clr-item">{{clr.name}}</div>
+          <div class="twelve columns align-center selection">
+            <h3>Mix <span class="white">{{numberOfColours}}</span> colours to match the colour below</h3>
+            <ul>
+              <li ng-repeat="clr in colours">
+                <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
+                  <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul>
+
+            <h3>Selected</h3>
+            <ul class="clr-list">
+              <li ng-repeat="clr in selectedColours" class="repeated">
+                <set-colour rgb="{{clr}}">
+                  <div class="clr-item">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul>
+
+            <!-- <h3>#</h3>
+            <ul class="clr-list">
+              <li ng-repeat="clr in generatedColours" class="repeated">
+                <set-colour rgb="{{clr}}">
+                  <div class="clr-item">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul> -->
+
+            <h3>Mixed output</h3>
+
+            <div class="clr-item mix full-width repeated" update-colour></div>
+
+            <hr />
+
+            <h3>Goal colour</h3>
+
+            <set-colour rgb="{{dest}}">
+              <div class="clr-item full-width">&nbsp;</div>
             </set-colour>
-            </li>
-          </ul>
-          <h1>Mix <span class="">{{numberOfColours}}</span> colours</h1>
 
+            <button ng-click="init()">reset</button>
 
-          <div class="clr-item mix repeated" update-colour></div>
-
-          <hr />
-
-          <set-colour rgb="{{dest}}">
-            <div class="clr-item">yo</div>
-          </set-colour>
-
-
-          <button ng-click="init()">Reset</button>
+          </div>
+        </div>
 
         </div>
-      </div>
-
-      </div>
     </div>
     <!-- scripts -->
 
@@ -82,5 +94,5 @@
 
             </set-colour>
             </li>
-          </ul> 
+          </ul>
         -->
