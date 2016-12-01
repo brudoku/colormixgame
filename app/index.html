@@ -19,7 +19,7 @@
         <div class="row">
 
           <div class="twelve columns align-center selection">
-            <h3>Mix <span class="white">{{numberOfColours}}</span> colours to match the colour below</h3>
+            <h3>Mix <span class="white larger-text">{{numberOfColours}}</span> colours to match the colour below</h3>
             <ul>
               <li ng-repeat="clr in colours">
                 <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
@@ -48,17 +48,15 @@
 
             <h3>Mixed output</h3>
 
-            <div class="clr-item mix full-width repeated" update-colour></div>
+            <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
 
             <hr />
 
             <h3>Goal colour</h3>
 
-            <set-colour rgb="{{dest}}">
-              <div class="clr-item full-width">&nbsp;</div>
-            </set-colour>
+              <div class="clr-item full-width" update-colour cell-name="goal">&nbsp;</div>
 
-            <button ng-click="init()">reset</button>
+            <button ng-click="init()" class="full-width button-text">reset</button>
 
           </div>
         </div>

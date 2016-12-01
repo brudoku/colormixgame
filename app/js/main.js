@@ -21,13 +21,17 @@ app.directive('updateColour', function(){
 	return {
 		link: function(scope, tElem, tAttrs){
 			var $elem = angular.element(tElem);
-			scope.$on('update', function(evt, args){
-				$elem.css('background-color', args);
-			});
-			// scope.$watch('mixedClr', function(evt, args){
-			// 	log(args);
-			// 	$elem.css('background-color', args);
-			// }, true)
+			var cellBroadcastLookup = {
+							'mix': 'update-mix',
+							'goal': 'update-goal'
+						};
+
+			scope.$on(cellBroadcastLookup[tAttrs.cellName],function(evt, args){
+				log(tAttrs.cellName)
+				log(args)
+					$elem.css('background-color', args);
+				});
+
 		}
     }
 });
@@ -88,13 +92,17 @@ function mainCtrl($scope, $timeout){
 		$scope.setGoal($scope.numberOfColours);
 
 		$timeout(function() {
-		    $scope.$broadcast("update", cm.getColorObject({r: 221, g: 221, b: 221}).rgbString());
+		    $scope.$broadcast("update-mix", cm.getColorObject({r: 221, g: 221, b: 221}).rgbString());
 		}, 0);
 	}
 
 	$scope.setGoal = function(count){
 		$scope.generatedColours = cm.getFewRandom($scope.colours, count);
-		$scope.dest = {rgb: cm.getColorObject(cm.mixColours($scope.generatedColours).colorObj.rgb()).rgb() };
+		$scope.goal = cm.getColorObject(cm.mixColours($scope.generatedColours).colorObj.rgb()).rgbString();
+		$timeout(function() {
+	    	$scope.$broadcast("update-goal", $scope.goal);
+		}, 0);
+
 	}
 
 	$scope.addColour = function(clrObj){
@@ -105,16 +113,15 @@ function mainCtrl($scope, $timeout){
 
 		//first colour selected, nothing to mix it with!
 		if($scope.selectedColours.length == 1){
-			$scope.$broadcast("update", clrObj.colorObj.rgbString());
+			$scope.$broadcast("update-mix", clrObj.colorObj.rgbString());
 		} else {
-	        $scope.$broadcast("update", cm.mixColours($scope.selectedColours).colorObj.rgbString());
+	        $scope.$broadcast("update-mix", cm.mixColours($scope.selectedColours).colorObj.rgbString());
 		}
 	}
 
 	$scope.init();
 
-
-	$scope.$watch('dest', function(e){});
+	$scope.$watch('goal', function(e){});
 
 }
 
