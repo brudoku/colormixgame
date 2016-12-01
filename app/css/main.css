@@ -1,8 +1,11 @@
 body {
-  background-color: #363636;
+  background-color: #ddd;
 }
 h1 {
-  color: #fff;
+  color: #363636;
+}
+.container {
+  border: solid rgba(255, 255, 255, 0.3) 1px;
 }
 li {
   list-style-type: none;
@@ -14,9 +17,6 @@ li {
 }
 .selection li {
   display: inline-block;
-}
-.mix {
-  width: 475px;
 }
 .button:hover,
 button:hover,
@@ -43,7 +43,54 @@ input[type="button"]:focus {
   outline: none;
   user-select: none;
 }
+.full-width {
+  width: 100%;
+}
 .highlight {
-  -webkit-transition: 200ms ease;
-  border: solid 8px red;
+  -webkit-transition: 800ms ease;
+  background: #ddd !important;
+}
+.repeated.ng-enter,
+.repeated.ng-move {
+  transition: all 1.5s linear;
+  opacity: 0;
+}
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.repeated.ng-enter.ng-enter-active,
+.repeated.ng-move.ng-move-active {
+  opacity: 1;
+}
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated class
+*/
+.repeated.ng-leave {
+  animation: 1s my_animation;
+}
+@keyframes my_animation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+ul.clr-list {
+  height: 75px;
+}
+.align-center {
+  text-align: center;
+}
+.button-text {
+  color: #333;
+  font-size: 15px;
+}
+.larger-text {
+  font-size: 120%;
 }
