@@ -22,7 +22,11 @@ li{
 	width: 75px;
 	height: 75px;
 	// display: inline-block;
-	border: solid 1px #f4f4f4;
+	border: solid 1px transparent;
+	font-weight: bold;
+   -webkit-transition: 800ms ease;
+  perspective-origin: 90% 90%;
+
 }
 
 .selection{
@@ -57,10 +61,11 @@ li{
 	width: 100%;
 }
 
-.highlight{
-	-webkit-transition: 800ms ease;
-	// border:solid 8px red;
-	background: @offwhite !important;
+.highlight {
+  -webkit-transform: rotate3D(1,0,0,90deg);
+  -webkit-transform-origin: bottom left;
+  border: 1px solid transparent;
+  background: #ccc !important;
 }
 
 .repeated{

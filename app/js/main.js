@@ -2,8 +2,8 @@
 
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-// var _ = require('lodash');
-var _ = require('./lodash.custom.min.js');
+var _ = require('lodash');
+// var _ = require('./lodash.custom.min.js');
 
 var app = angular.module('app', ['ngAnimate']);
 app.controller('mixer', ['$scope', '$timeout', mainCtrl]);
@@ -80,12 +80,39 @@ function mainCtrl($scope, $timeout){
 		return cm.getColorObject(elem.rgb);
 	});
 
+	$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
+	    return _.defaults({ colorObj: value, isSelected: false }, item);
+	});
+
 	$scope.defaultColour = cm.getColorObject({r: 0, g: 0, b: 0}).rgbString();
+	$scope.currentLevel = 0;
+	$scope.levels = [
+		{
+			id: "One",
+			colourCount: 2
+		},
+		{
+			id: "Two",
+			colourCount: 3
+		},
+		{
+			id: "Three",
+			colourCount: 4
+		}
+		];
+
+	$scope.GameManager = function(){
+
+
+	}
 
 	$scope.init = function(){
-		$scope.colours = _.zipWith(colours, coloursObj, function(item, value) {
-		    return _.defaults({ colorObj: value, isSelected: false }, item);
+
+		$scope.colours = _.map($scope.colours, function(clrObj){
+			clrObj.isSelected = false;
+			return clrObj;
 		});
+
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
 		$scope.numberOfColours = Math.floor(Math.random() * ($scope.colours.length - 3) ) + 2;
