@@ -133,6 +133,25 @@ function mainCtrl( $scope, $timeout ) {
 			colourCount: 4
 		}];
 
+	function loadLevel(){
+		return $scope.levels[$scope.currentLevel];
+	}
+
+	$scope.getCurrentLevel = function(){
+		return $scope.levels[$scope.currentLevel].id
+	}
+
+	$scope.nextRound = function(){
+		if($scope.currentLevel <= $scope.levels.length){
+			$scope.initBoard($scope.levels[$scope.currentLevel]);
+			$scope.currentLevel++;
+		} else {
+			$scope.currentLevel = 0;
+			$scope.initBoard($scope.levels[$scope.currentLevel]);
+
+		}
+	}
+
 	$scope.isCorrect = function(){
 		if ( _.isEqual( sortArrayById( $scope.selectedColours ), sortArrayById( $scope.generatedColours ) ) ) {
 		} else {
@@ -144,16 +163,13 @@ function mainCtrl( $scope, $timeout ) {
 		var isComplete = ($scope.selectedColours.length == $scope.numberOfColours) && $scope.selectedColours.length > 0;
 		if(isComplete) $scope.$broadcast('round-complete', isComplete);
 		return isComplete;
-		// ($scope.selectedColours.length == $scope.numberOfColours) ?  : $scope.broadcast('round-complete', true);
 	}
 
 	$scope.$on( 'round-complete', function( args ) {
-		log('round-complete');
-		location.hash = '#modalx';
+		location.hash = '#modal';
 	});
 
 	$scope.$on( 'update-mix', function( args ) {
-		log('update-mix');
 		$scope.isRoundComplete();
 		$scope.isCorrect();
 	});
@@ -161,7 +177,7 @@ function mainCtrl( $scope, $timeout ) {
 	$scope.$on( 'update-goal', function( args ) {
 	});
 
-	$scope.initBoard = function() {
+	$scope.initBoard = function(levelObj) {
 		$scope.colours = _.map( $scope.colours, function( clrObj ) {
 			clrObj.isSelected = false;
 			return clrObj;
@@ -169,6 +185,7 @@ function mainCtrl( $scope, $timeout ) {
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
 		$scope.numberOfColours = Math.floor( Math.random() * ( $scope.colours.length - 6 ) ) + 2;
+		$scope.numberOfColours = levelObj.colourCount;
 		$scope.setGoal( $scope.numberOfColours );
 		$timeout( function() {
 			$scope.$broadcast( "update-mix", cm.getColorObject( {
@@ -210,7 +227,7 @@ function mainCtrl( $scope, $timeout ) {
 		}
 	} )();
 
-	$scope.initBoard();
+	$scope.nextRound();
 
 }
 

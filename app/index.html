@@ -18,8 +18,8 @@
   <div ng-app="app" id="app">
 
       <div class="container" ng-controller="mixer" >
- <a class="show_button" href="#modalx">Show</a>
-        <div class="remodal" data-remodal-id="modalx" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="hashTracking: true, closeOnOutsideClick: false">
+      <!-- <a class="show_button" href="#modal">Show</a> -->
+        <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false">
           <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
 
           <div class="result">
@@ -35,6 +35,8 @@
                 </set-colour>
               </li>
             </ul>
+            <h3>and got:</h3>
+            <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
 
             <h3>Answer:</h3>
             <ul class="clr-list">
@@ -46,16 +48,20 @@
             </ul>
 
             <h3>Goal colour:</h3>
-            <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
+            <div class="clr-item mix full-width repeated" update-colour cell-name="goal"></div>
 
           </div>
 
-          <button data-remodal-action="confirm" class="remodal-confirm" ng-click="initBoard()">OK</button>
+          <button data-remodal-action="confirm" class="remodal-confirm" ng-click="nextRound()">OK</button>
         </div>
+        <!-- <div class="row">
+          <div class="twelve columns align-center">
+          </div>
+        </div> -->
 
         <div class="row">
           <div class="twelve columns align-center">
-
+          <h3>Current level: {{getCurrentLevel()}}</h3>
           <h3>Mix <span class="white larger-text">{{numberOfColours}}</span> colours to match the colour below</h3>
           <ul class="clr-list">
             <li ng-repeat="clr in colours">
@@ -76,7 +82,7 @@
 
           <h3>Mixed output</h3>
           <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
-          <div ng-if="isRoundComplete()" class="result">
+          <!--<div ng-if="isRoundComplete()" class="result">
             <h3 ng-if="isCorrect()">Correct</h3>
             <h3 ng-if="!isCorrect()">Wrong</h3>
               <ul class="clr-list">
@@ -86,7 +92,7 @@
                   </set-colour>
                 </li>
               </ul>
-          </div>
+          </div>-->
 
           <h3>Goal colour</h3>
           <div class="clr-item full-width" update-colour cell-name="goal">&nbsp;</div>
