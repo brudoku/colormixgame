@@ -25,7 +25,9 @@ app.directive( 'setColour', function() {
 		},
 		link: function( scope, tElem, tAttrs ) {
 			var $elem = angular.element( tElem );
-			var rgb = toRgbString( JSON.parse( tAttrs.rgb ).rgb );
+			var rgb = tAttrs.rgb ? toRgbString( JSON.parse( tAttrs.rgb ).rgb ) : 'rgb(0,0,0)';
+			// log('rgb');
+			// log($elem)
 			$elem.find( 'div' ).css( 'background-color', rgb );
 		}
 	}
@@ -122,22 +124,22 @@ app.animation( '.clr-item', function() {
 });
 
 function mainCtrl( $scope, $timeout ) {
+/*
 	$scope.myData = {
 		link: "http://google.com",
 		modalShown: false,
 		hello: 'world',
 		foo: 'bar'
 	};
-
 	$scope.logClose = function() {
 		console.log('close!');
 	};
 
 	$scope.toggleModal = function() {
-		log('c');
-		$scope.myData.modalShown = !$scope.myData.modalShown;
+		// log('toggleModal'  +$scope.myData.modalShown);
+		// $scope.myData.modalShown = !$scope.myData.modalShown;
 	};
-
+*/
 	var colours = [
 		{
 			id: 1,
@@ -235,22 +237,20 @@ function mainCtrl( $scope, $timeout ) {
 		return _.isEqual( sortArrayById( $scope.selectedColours ), sortArrayById( $scope.generatedColours ) );
 	}
 
-		log('is-round-complete')
 	$scope.isRoundComplete = function(){
-
-		var isComplete = ($scope.selectedColours.length == $scope.numberOfColours);
-		$scope.$broadcast('round-complete', isComplete);
+		var isComplete = ($scope.selectedColours.length == $scope.numberOfColours) && $scope.selectedColours.length > 0;
+		if(isComplete) $scope.$broadcast('round-complete', isComplete);
 		return isComplete;
 		// ($scope.selectedColours.length == $scope.numberOfColours) ?  : $scope.broadcast('round-complete', true);
 	}
 
 	$scope.$on( 'round-complete', function( args ) {
-		log('round-complete')
-		// $scope.toggleModal();
+		log('round-complete');
+		location.hash = '#modalx';
 	});
 
 	$scope.$on( 'update-mix', function( args ) {
-		log('update-mix')
+		log('update-mix');
 		$scope.isRoundComplete();
 		$scope.isCorrect();
 	});
@@ -318,3 +318,9 @@ function toRgbString( rgbObj ) {
 angular.element(tElem).find('div').css('background-color',toRgbString(JSON.parse(tAttrs.rgb).rgb));
 
 */
+$('#mod').on('click', function(e,arg){
+	log('clk')
+	log(e)
+	log(arg)
+	log('--')
+})
