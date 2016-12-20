@@ -10,33 +10,23 @@
     <!-- styles-->
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/skeleton.css">
-    <link rel="stylesheet" href="./css/remodal.css">
-    <link rel="stylesheet" href="./css/remodal-default-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css">
     <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
   <div ng-app="app" id="app">
 
       <div class="container" ng-controller="mixer" >
-
-          <a href="#modalx" id="mod">Modal №1</a>
-        <!-- <div class="remodal-bg">
-          <h1>Remodal</h1>
-          <p>
-            Responsive, lightweight, fast, synchronized with CSS animations, fully customizable modal window plugin
-            with declarative configuration and hash tracking.
-          </p>
-        </div> -->
-
-
-        <div class="remodal" data-remodal-id="modalx" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
-          <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+ <a class="show_button" href="#modalx">Show</a>
+        <div class="remodal" data-remodal-id="modalx" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="hashTracking: true, closeOnOutsideClick: false">
+          <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
 
           <div class="result">
-          
+
             <h2 ng-if="isCorrect()">Correct!</h2>
             <h2 ng-if="!isCorrect()">Wrong!</h2>
-          
+
             <h3>You selected:</h3>
             <ul class="clr-list">
               <li ng-repeat="clr in selectedColours" class="repeated">
@@ -45,7 +35,7 @@
                 </set-colour>
               </li>
             </ul>
-          
+
             <h3>Answer:</h3>
             <ul class="clr-list">
               <li ng-repeat="clr in generatedColours" class="repeated">
@@ -54,41 +44,17 @@
                 </set-colour>
               </li>
             </ul>
-            
+
             <h3>Goal colour:</h3>
             <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
-          
+
           </div>
 
-
-          <!-- <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button> -->
           <button data-remodal-action="confirm" class="remodal-confirm" ng-click="initBoard()">OK</button>
         </div>
 
-<!--         <modal-dialog show='myData.modalShown' width='500px' dialog-title='Modal Dialog Title' on-close='logClose()'>
-          <p>This is some html content</p>
-          <p>
-            <label for='hello'>Hello:</label>
-            <input type='text' name='hello' ng-model='myData.hello' />
-          </p>
-          <p>
-            <label for='foo'>Foo:</label>
-            <input type='text' name='foo' ng-model='myData.foo' />
-
-              <set-colour rgb>
-                <div class="clr-item"><div class="clr-item-2">clr name</div></div>
-              </set-colour>
-          </p>
-          <img src='http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg' width='300px'/>
-        </modal-dialog> -->
-
-        <!-- <button ng-click='toggleModal()'>Toggle Modal</button> -->
-
         <div class="row">
           <div class="twelve columns align-center">
-
-          <br>
-          show{{modalData.cunt}}
 
           <h3>Mix <span class="white larger-text">{{numberOfColours}}</span> colours to match the colour below</h3>
           <ul class="clr-list">
@@ -130,7 +96,7 @@
         </div>
 
       </div>
-    </div>
+  </div>
 
     <!-- scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -138,7 +104,7 @@
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 
     <!--<script src="./js/snabbt.min.js"></script>-->
-    <script src="./js/remodal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.js"></script>
 
     <!--
     <script src="bower_components/lodash/lodash.js"></script>
