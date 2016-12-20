@@ -31,16 +31,38 @@
 
         <div class="remodal" data-remodal-id="modalx" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
           <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
-          <div>
-            <h2 id="modal1Title">Remodal</h2>
-            <p id="modal1Desc">
-              <!-- <li ng-repeat="clr in computedcolours"></li> -->
-              <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
-            </p>
+
+          <div class="result">
+          
+            <h2 ng-if="isCorrect()">Correct!</h2>
+            <h2 ng-if="!isCorrect()">Wrong!</h2>
+          
+            <h3>You selected:</h3>
+            <ul class="clr-list">
+              <li ng-repeat="clr in selectedColours" class="repeated">
+                <set-colour rgb="{{clr}}">
+                  <div class="clr-item">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul>
+          
+            <h3>Answer:</h3>
+            <ul class="clr-list">
+              <li ng-repeat="clr in generatedColours" class="repeated">
+                <set-colour rgb="{{clr}}">
+                  <div class="clr-item">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul>
+            
+            <h3>Goal colour:</h3>
+            <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
+          
           </div>
-          <br>
-          <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
-          <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+
+
+          <!-- <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button> -->
+          <button data-remodal-action="confirm" class="remodal-confirm" ng-click="initBoard()">OK</button>
         </div>
 
 <!--         <modal-dialog show='myData.modalShown' width='500px' dialog-title='Modal Dialog Title' on-close='logClose()'>
@@ -59,17 +81,17 @@
           </p>
           <img src='http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg' width='300px'/>
         </modal-dialog> -->
-        
+
         <!-- <button ng-click='toggleModal()'>Toggle Modal</button> -->
 
         <div class="row">
-          <div class="twelve columns align-center selection">
+          <div class="twelve columns align-center">
 
           <br>
           show{{modalData.cunt}}
 
           <h3>Mix <span class="white larger-text">{{numberOfColours}}</span> colours to match the colour below</h3>
-          <ul>
+          <ul class="clr-list">
             <li ng-repeat="clr in colours">
               <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
                 <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
