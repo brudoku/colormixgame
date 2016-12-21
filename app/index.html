@@ -19,7 +19,7 @@
 
       <div class="container" ng-controller="mixer" >
       <!-- <a class="show_button" href="#modal">Show</a> -->
-        <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false">
+        <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false, closeOnEscape: false">
           <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
 
           <div class="result">
@@ -61,8 +61,8 @@
 
         <div class="row">
           <div class="twelve columns align-center">
-          <h3>Current level: {{getCurrentLevel()}}</h3>
-          <h3>Mix <span class="white larger-text">{{numberOfColours}}</span> colours to match the colour below</h3>
+          <h3>Current level: {{getCurrentLevelName()}}</h3>
+          <h3>Mix <span class="white larger-text">{{getCurrentCount()}}</span> colours to match the colour below</h3>
           <ul class="clr-list">
             <li ng-repeat="clr in colours">
               <set-colour rgb="{{clr}}" ng-click="addColour(clr)">

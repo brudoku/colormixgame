@@ -27,7 +27,7 @@ app.directive( 'setColour', function() {
 			$elem.find( 'div' ).css( 'background-color', rgb );
 		}
 	}
-} );
+});
 
 app.directive( 'updateColour', function() {
 	return {
@@ -42,13 +42,14 @@ app.directive( 'updateColour', function() {
 			} );
 		}
 	}
-} );
+});
 
 app.animation( '.clr-item', function() {
 	return {
 	enter: function( element, done ) {}
 	}
 });
+
 function mainCtrl( $scope, $timeout ) {
 
 	var colours = [
@@ -113,12 +114,6 @@ function mainCtrl( $scope, $timeout ) {
 		}, item );
 	} );
 
-	$scope.defaultColour = cm.getColorObject( {
-		r: 0,
-		g: 0,
-		b: 0
-	} ).rgbString();
-
 	$scope.currentLevel = 0;
 
 	$scope.levels = [
@@ -133,29 +128,29 @@ function mainCtrl( $scope, $timeout ) {
 			colourCount: 4
 		}];
 
-	function loadLevel(){
-		return $scope.levels[$scope.currentLevel];
-	}
-
-	$scope.getCurrentLevel = function(){
+	$scope.getCurrentLevelName = function(){
 		return $scope.levels[$scope.currentLevel].id
 	}
 
+	$scope.getCurrentCount = function(){
+		return $scope.levels[$scope.currentLevel].colourCount
+	}
+
 	$scope.nextRound = function(){
-		if($scope.currentLevel <= $scope.levels.length){
-			$scope.initBoard($scope.levels[$scope.currentLevel]);
+		if($scope.currentLevel < $scope.levels.length - 1){
 			$scope.currentLevel++;
+			$scope.initBoard($scope.levels[$scope.currentLevel]);
 		} else {
 			$scope.currentLevel = 0;
 			$scope.initBoard($scope.levels[$scope.currentLevel]);
-
 		}
 	}
 
+	$scope.$watch('currentLevel', function(val){
+		log('watch: ' + val)
+	})
+
 	$scope.isCorrect = function(){
-		if ( _.isEqual( sortArrayById( $scope.selectedColours ), sortArrayById( $scope.generatedColours ) ) ) {
-		} else {
-		}
 		return _.isEqual( sortArrayById( $scope.selectedColours ), sortArrayById( $scope.generatedColours ) );
 	}
 
@@ -165,28 +160,19 @@ function mainCtrl( $scope, $timeout ) {
 		return isComplete;
 	}
 
-	$scope.$on( 'round-complete', function( args ) {
-		location.hash = '#modal';
-	});
-
-	$scope.$on( 'update-mix', function( args ) {
-		$scope.isRoundComplete();
-		$scope.isCorrect();
-	});
-
-	$scope.$on( 'update-goal', function( args ) {
-	});
-
 	$scope.initBoard = function(levelObj) {
+		// var levelObject = levelObj ? levelObj : $scope.levels[0];
 		$scope.colours = _.map( $scope.colours, function( clrObj ) {
 			clrObj.isSelected = false;
 			return clrObj;
 		} );
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
-		$scope.numberOfColours = Math.floor( Math.random() * ( $scope.colours.length - 6 ) ) + 2;
+		log(levelObj)
+		// $scope.numberOfColours = levelObject.colourCount;
 		$scope.numberOfColours = levelObj.colourCount;
-		$scope.setGoal( $scope.numberOfColours );
+
+		setGoal( $scope.numberOfColours );
 		$timeout( function() {
 			$scope.$broadcast( "update-mix", cm.getColorObject( {
 				r: 221,
@@ -202,7 +188,7 @@ function mainCtrl( $scope, $timeout ) {
 		clrObj.isSelected = true;
 		$scope.selectedColours.push( clrObj );
 		$scope.unselectedColours = cm.getUnusedItems( $scope.colours, $scope.selectedColours );
-		//if this is the first colour is selected, publish rather than mix.
+		//if this is the first colour is selected, publish as is.
 		if ( $scope.selectedColours.length == 1 ) {
 			$scope.$broadcast( "update-mix", clrObj.colorObj.rgbString() );
 		} else {
@@ -211,7 +197,7 @@ function mainCtrl( $scope, $timeout ) {
 		}
 	}
 
-	$scope.setGoal = function( count ) {
+	function setGoal( count ) {
 		$scope.generatedColours = cm.getFewRandom( $scope.colours, count );
 		$scope.goal = cm.getColorObject( cm.mixColours( $scope.generatedColours ).colorObj.rgb() ).rgbString();
 		$timeout( function() {
@@ -227,10 +213,25 @@ function mainCtrl( $scope, $timeout ) {
 		}
 	} )();
 
-	$scope.nextRound();
+	$scope.$on( 'round-complete', function( args ) {
+		location.hash = '#modal';
+	});
+
+	$scope.$on( 'update-mix', function( args ) {
+		$scope.isRoundComplete();
+		$scope.isCorrect();
+	});
+
+	$scope.initBoard($scope.levels[$scope.currentLevel]);
 
 }
 
 function toRgbString( rgbObj ) {
 	return 'rgb(' + rgbObj.r + ',' + rgbObj.g + ',' + rgbObj.b + ')'
 }
+
+
+/*	function loadLevel(){
+		return $scope.levels[$scope.currentLevel];
+	}
+*/
