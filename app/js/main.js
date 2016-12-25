@@ -1,8 +1,8 @@
 'use strict';
 var ColorMixer = require( './ColorMixer.js' );
 var cm = new ColorMixer();
-// var _ = require( 'lodash' );
-var _ = require( './lodash.custom.min.js' );
+var _ = require( 'lodash' );
+// var _ = require( './lodash.custom.min.js' );
 
 var log = (function (){
 	return function(msg){
@@ -44,11 +44,51 @@ app.directive( 'updateColour', function() {
 	}
 });
 
-app.animation( '.clr-item', function() {
-	return {
-	enter: function( element, done ) {}
-	}
-});
+app.animation('.clr-item', function ($timeout){
+    	console.log('anim')
+
+  return {
+    enter: function (element, done){
+    	console.log('anim enter')
+    	
+		// var $viewUI = $(element);
+	 //    $viewUI.css('z-index',100);
+		// $viewUI.snabbt({
+		// 	easing:'easeIn',
+		// 	opacity: 1,
+		// 	fromOpacity: 0,
+		// 	fromPosition: [0,distance,0],
+		// 	position: [0,0,0],
+		// 	duration: 250
+		// });
+		// $timeout(function(){
+		// 	done();
+		// },500)
+    	console.log('anim enter')
+
+    },
+    leave: function(element, done){
+    	console.log('anim leave')
+	 //    var $viewUI = $(element).find('.post-ui');
+	 //    $viewUI.css('z-index',0);
+		// var goingRight = Utility.operations().isMovingRight(Utility.operations().getCatDirection());
+		// var posNeg = _.partial(Utility.operations().posNeg, goingRight);
+	 //  	var distance = 100;
+		// $viewUI.snabbt({
+		// 	easing:'easeIn',
+		// 	rotation: [0, 0, 0],
+		// 	rotation: [0,0,0],
+		// 	opacity: 0,
+		// 	fromOpacity: 0.5,
+		// 	position: [0,distance,0],
+		// 	duration: 250
+		// });
+		// $timeout(function(){
+		// done();
+		// },1000)
+    }
+  }
+})
 
 function mainCtrl( $scope, $timeout ) {
 
@@ -120,9 +160,27 @@ function mainCtrl( $scope, $timeout ) {
 		{
 			id: "One",
 			colourCount: 2
+		},{
+			id: "One",
+			colourCount: 2
+		},{
+			id: "One",
+			colourCount: 2
 		}, {
 			id: "Two",
 			colourCount: 3
+		}, {
+			id: "Two",
+			colourCount: 3
+		}, {
+			id: "Two",
+			colourCount: 3
+		}, {
+			id: "Three",
+			colourCount: 4
+		}, {
+			id: "Three",
+			colourCount: 4
 		}, {
 			id: "Three",
 			colourCount: 4
@@ -146,10 +204,6 @@ function mainCtrl( $scope, $timeout ) {
 		}
 	}
 
-	$scope.$watch('currentLevel', function(val){
-		log('watch: ' + val)
-	})
-
 	$scope.isCorrect = function(){
 		return _.isEqual( sortArrayById( $scope.selectedColours ), sortArrayById( $scope.generatedColours ) );
 	}
@@ -161,17 +215,14 @@ function mainCtrl( $scope, $timeout ) {
 	}
 
 	$scope.initBoard = function(levelObj) {
-		// var levelObject = levelObj ? levelObj : $scope.levels[0];
+		var levelObject = levelObj ? levelObj : $scope.levels[0];
 		$scope.colours = _.map( $scope.colours, function( clrObj ) {
 			clrObj.isSelected = false;
 			return clrObj;
 		} );
 		$scope.selectedColours = [];
 		$scope.unselectedColours = [];
-		log(levelObj)
-		// $scope.numberOfColours = levelObject.colourCount;
-		$scope.numberOfColours = levelObj.colourCount;
-
+		$scope.numberOfColours = levelObject.colourCount;
 		setGoal( $scope.numberOfColours );
 		$timeout( function() {
 			$scope.$broadcast( "update-mix", cm.getColorObject( {
