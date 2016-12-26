@@ -44,48 +44,39 @@ app.directive( 'updateColour', function() {
 	}
 });
 
-app.animation('.clr-item', function ($timeout){
-    	console.log('anim')
+app.animation('.repeated', function ($timeout){
+  console.log('anim')
 
   return {
     enter: function (element, done){
-    	console.log('anim enter')
-    	
-		// var $viewUI = $(element);
-	 //    $viewUI.css('z-index',100);
-		// $viewUI.snabbt({
-		// 	easing:'easeIn',
-		// 	opacity: 1,
-		// 	fromOpacity: 0,
-		// 	fromPosition: [0,distance,0],
-		// 	position: [0,0,0],
-		// 	duration: 250
-		// });
-		// $timeout(function(){
-		// 	done();
-		// },500)
-    	console.log('anim enter')
-
+		var $elem = $(element);
+	    $elem.css('z-index',100);
+		$elem.snabbt({
+			easing:'easeIn',
+			opacity: 1,
+			fromOpacity: 0,
+			fromPosition: [0,100,0],
+			position: [0,0,0],
+			duration: 250
+		});
+		$timeout(function(){
+			done();
+		},500)
     },
     leave: function(element, done){
-    	console.log('anim leave')
-	 //    var $viewUI = $(element).find('.post-ui');
-	 //    $viewUI.css('z-index',0);
-		// var goingRight = Utility.operations().isMovingRight(Utility.operations().getCatDirection());
-		// var posNeg = _.partial(Utility.operations().posNeg, goingRight);
-	 //  	var distance = 100;
-		// $viewUI.snabbt({
-		// 	easing:'easeIn',
-		// 	rotation: [0, 0, 0],
-		// 	rotation: [0,0,0],
-		// 	opacity: 0,
-		// 	fromOpacity: 0.5,
-		// 	position: [0,distance,0],
-		// 	duration: 250
-		// });
-		// $timeout(function(){
-		// done();
-		// },1000)
+		var $elem = $(element);
+	    $elem.css('z-index',100);
+		$elem.snabbt({
+			easing:'easeIn',
+			opacity: 0,
+			fromOpacity: 1,
+			fromPosition: [0,0,0],
+			position: [0,100,0],
+			duration: 250
+		});
+		$timeout(function(){
+			done();
+		},500)
     }
   }
 })
@@ -161,11 +152,11 @@ function mainCtrl( $scope, $timeout ) {
 			id: "One",
 			colourCount: 2
 		},{
+			id: "One Two",
+			colourCount: 2
+		}/*,{
 			id: "One",
 			colourCount: 2
-		},{
-			id: "One",
-			colourCount: 2
 		}, {
 			id: "Two",
 			colourCount: 3
@@ -184,7 +175,7 @@ function mainCtrl( $scope, $timeout ) {
 		}, {
 			id: "Three",
 			colourCount: 4
-		}];
+		}*/];
 
 	$scope.getCurrentLevelName = function(){
 		return $scope.levels[$scope.currentLevel].id
@@ -265,7 +256,10 @@ function mainCtrl( $scope, $timeout ) {
 	} )();
 
 	$scope.$on( 'round-complete', function( args ) {
+		$timeout(function() {
 		location.hash = '#modal';
+			
+		}, 500);
 	});
 
 	$scope.$on( 'update-mix', function( args ) {
@@ -280,9 +274,3 @@ function mainCtrl( $scope, $timeout ) {
 function toRgbString( rgbObj ) {
 	return 'rgb(' + rgbObj.r + ',' + rgbObj.g + ',' + rgbObj.b + ')'
 }
-
-
-/*	function loadLevel(){
-		return $scope.levels[$scope.currentLevel];
-	}
-*/

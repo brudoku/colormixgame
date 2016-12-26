@@ -60,44 +60,44 @@
         </div> -->
 
         <div class="row">
+
           <div class="twelve columns align-center">
-          <h3>Current level: {{getCurrentLevelName()}}</h3>
-          <h3>Mix <span class="white larger-text">{{getCurrentCount()}}</span> colours to match the colour below</h3>
-          <ul class="clr-list">
-            <li ng-repeat="clr in colours">
-              <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
-                <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
-              </set-colour>
-            </li>
-          </ul>
+            <h3>Current level: {{getCurrentLevelName()}}</h3>
+            <h3>Mix <span class="white larger-text">{{getCurrentCount()}}</span> colours to match the colour below</h3>
+            <ul class="clr-list">
+              <li ng-repeat="clr in colours">
+                <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
+                  <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul>
 
-          <h3>Selected</h3>
-          <ul class="clr-list">
-            <li ng-repeat="clr in selectedColours" class="repeated">
-              <set-colour rgb="{{clr}}">
-                <div class="clr-item">{{clr.name}}</div>
-              </set-colour>
-            </li>
-          </ul>
+            <h3>Selected</h3>
+            <ul class="clr-list">
+              <li ng-repeat="clr in selectedColours" class="repeated">
+                <set-colour rgb="{{clr}}">
+                  <div class="clr-item">{{clr.name}}</div>
+                </set-colour>
+              </li>
+            </ul>
 
-          <h3>Mixed output</h3>
-          <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
-          <!--<div ng-if="isRoundComplete()" class="result">
-            <h3 ng-if="isCorrect()">Correct</h3>
-            <h3 ng-if="!isCorrect()">Wrong</h3>
-              <ul class="clr-list">
-                <li ng-repeat="clr in generatedColours" class="repeated">
-                  <set-colour rgb="{{clr}}">
-                    <div class="clr-item">{{clr.name}}</div>
-                  </set-colour>
-                </li>
-              </ul>
-          </div>-->
-
-          <h3>Goal colour</h3>
-          <div class="clr-item full-width" update-colour cell-name="goal">&nbsp;</div>
-          <button ng-click="initBoard()" class="full-width button-text">reset</button>
-
+            <h3>Mixed output</h3>
+            <div class="clr-item mix full-width repeated" update-colour cell-name="mix"></div>
+            <!--<div ng-if="isRoundComplete()" class="result">
+                <h3 ng-if="isCorrect()">Correct</h3>
+                <h3 ng-if="!isCorrect()">Wrong</h3>
+                  <ul class="clr-list">
+                    <li ng-repeat="clr in generatedColours" class="repeated">
+                      <set-colour rgb="{{clr}}">
+                        <div class="clr-item">{{clr.name}}</div>
+                      </set-colour>
+                    </li>
+                  </ul>
+                </div>
+            -->
+            <h3>Goal colour</h3>
+            <div class="clr-item full-width" update-colour cell-name="goal">&nbsp;</div>
+            <button ng-click="initBoard()" class="full-width button-text">reset</button>
           </div>
         </div>
 
@@ -108,8 +108,7 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-
-    <!--<script src="./js/snabbt.min.js"></script>-->
+    <script src="./js/snabbt.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.js"></script>
 
     <!--

@@ -26,7 +26,6 @@ li{
 	font-weight: bold;
    -webkit-transition: 800ms ease;
   perspective-origin: 90% 90%;
-
 }
 
 .clr-list{
@@ -44,19 +43,6 @@ li{
 	border-color: #eee;
 }
 
-.cmn-toggle {
-  position: absolute;
-  margin-left: -9999px;
-  visibility: hidden;
-	+ label {
-			display: block;
-			position: relative;
-			cursor: pointer;
-			outline: none;
-			user-select: none;
-	}
-}
-
 .full-width{
 	width: 100%;
 }
@@ -68,41 +54,52 @@ li{
   background: #ccc !important;
 }
 
-.repeated{
-
+/*.repeated{
+  transition: all 1.5s linear;
 }
 
 .repeated.ng-enter, .repeated.ng-move {
-  transition: all 1.5s linear;
   opacity: 0;
   border: 1px solid transparent;
-  
+
 }
 
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
 .repeated.ng-enter.ng-enter-active,
 .repeated.ng-move.ng-move-active {
   opacity: 1;
+  animation: 1s rotateIt;
 }
 
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .repeated class
-*/
 .repeated.ng-leave {
-  animation: 1s my_animation;
+  // animation: 1s fadeOut;
+  animation: 1s rotate;
+  opacity: 0
 }
 
-@keyframes my_animation {
+@keyframes fadeOut {
   from { opacity:1; }
   to { opacity:0; }
 }
+
+@keyframes rotateIt{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }  
+  
+}
+
+@keyframes rotate{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(-360deg);
+  }  
+  
+}*/
 
 ul.clr-list{
 	height: 75px;
@@ -127,100 +124,100 @@ ul.clr-list{
 
 /***********************modal***********************/
 
-.remodal-bg.with-red-theme.remodal-is-opening,
-.remodal-bg.with-red-theme.remodal-is-opened {
-  filter: none;
-}
+  .remodal-bg.with-red-theme.remodal-is-opening,
+  .remodal-bg.with-red-theme.remodal-is-opened {
+    filter: none;
+  }
 
-.remodal-overlay.with-red-theme {
-  background-color: #f44336;
-}
+  .remodal-overlay.with-red-theme {
+    background-color: #f44336;
+  }
 
-.remodal.with-red-theme {
-  background: #fff;
-}
+  .remodal.with-red-theme {
+    background: #fff;
+  }
 
-.remodal{
-	// margin: 0 auto;
-	// margin-top: -400px;
-}
+  .remodal{
+  	// margin: 0 auto;
+  	// margin-top: -400px;
+  }
 
 
-.ng-modal {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-filter: blur(0px);
-}
+  .ng-modal {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(0px);
+  }
 
-.ng-modal.ng-hide-add .ng-modal.ng-hide-remove {
-  /* this is required as of 1.3x to properly
-     apply all styling in a show/hide animation */
-  transition: 0s linear all;
-}
-.ng-modal.ng-hide-add-active,
-.ng-modal.ng-hide-remove-active {
-  /* the transition is defined in the active class */
-  transition: 1s linear all;
-}
+  .ng-modal.ng-hide-add .ng-modal.ng-hide-remove {
+    /* this is required as of 1.3x to properly
+       apply all styling in a show/hide animation */
+    transition: 0s linear all;
+  }
+  .ng-modal.ng-hide-add-active,
+  .ng-modal.ng-hide-remove-active {
+    /* the transition is defined in the active class */
+    transition: 1s linear all;
+  }
 
-.ng-modal-overlay {
-  position: absolute;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000000;
-  opacity: 0.8;
-}
-.ng-modal-dialog {
-  z-index: 10000;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  background-color: #fff;
-  box-shadow: 4px 4px 80px #000;
-  -webkit-box-shadow: 4px 4px 80px #000;
-  -moz-box-shadow: 4px 4px 80px #000;
-  -ms-box-shadow: 4px 4px 80px #000;
-  -o-box-shadow: 4px 4px 80px #000;
-  padding: 10px;
-}
-.ng-modal-dialog-content {
-  overflow: hidden;
-  height: 100%;
-}
-.ng-modal-close {
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  cursor: pointer;
-  font-size: 120%;
-  padding: 5px;
-  display: inline-block;
-}
-.ng-modal-close-x {
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-}
-.ng-modal-title {
-  font-weight: bold;
-  font-size: 200%;
-  display: block;
-  margin-bottom: 10px;
-  padding-bottom: 7px;
-  border-bottom: solid 1px #999;
-}
+  .ng-modal-overlay {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.8;
+  }
+  .ng-modal-dialog {
+    z-index: 10000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 4px 4px 80px #000;
+    -webkit-box-shadow: 4px 4px 80px #000;
+    -moz-box-shadow: 4px 4px 80px #000;
+    -ms-box-shadow: 4px 4px 80px #000;
+    -o-box-shadow: 4px 4px 80px #000;
+    padding: 10px;
+  }
+  .ng-modal-dialog-content {
+    overflow: hidden;
+    height: 100%;
+  }
+  .ng-modal-close {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 120%;
+    padding: 5px;
+    display: inline-block;
+  }
+  .ng-modal-close-x {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+  .ng-modal-title {
+    font-weight: bold;
+    font-size: 200%;
+    display: block;
+    margin-bottom: 10px;
+    padding-bottom: 7px;
+    border-bottom: solid 1px #999;
+  }
 
 .blur{
   filter: blur(3px);
