@@ -134,15 +134,61 @@ function mainCtrl( $scope, $timeout ) {
 			}
 		} ];
 
+var colours2 = [
+		{
+			id: 7,
+			name: 'red'
+		}, {
+			id: 3,
+			name: 'blue'
+		}];
+
+
+	var colourVars = [
+			{
+				name: 'violet',
+				rgb: [	{r: 148,g: 0,b: 211}, {r: 148,g: 29,b: 181}, {r: 130,g: 29,b: 229}]
+			},
+			{
+				name: 'blue',
+				rgb: [{r: 0,g: 0,b: 255}, {r: 0,g: 20,b: 255}, {r: 20,g: 10,b: 255}]
+			},
+			{
+				name: 'green',
+				rgb: [{r: 0,g: 255,b: 0}, {r: 29,g: 255,b: 29}, {r: 57,g: 255,b: 37}]
+			},
+			{
+				name: 'yellow',
+				rgb: [{r: 0,g: 255,b: 255}, {r: 27,g: 255,b: 227}, {r: 10,g: 255,b: 188}]
+			},
+			{
+				name: 'orange',
+				rgb: [{r: 255,g: 127,b: 0}, {r: 255,g: 100,b: 27}, {r: 255,g: 117,b: 77}]
+			},
+			{
+				name: 'red',
+				rgb: [{r: 255,g: 0,b: 0}, {r: 255,g: 100,b: 0}, {r: 255,g: 100,b: 100}]
+			}
+		];
+
+var colours3 = _.zipWith( colours, colourVars, function(colorData, colorVar){
+	log(colorVar)
+	var colorShade = colorVar.rgb[_.random(0,colorVar.rgb.length)];
+	colorData.rgb = colorShade;
+	return colorData;
+});
+
+log(colours3)
+
 	var coloursObj = _.map( colours, function( elem ) {
 		return cm.getColorObject( elem.rgb );
 	} );
 
-	$scope.colours = _.zipWith( colours, coloursObj, function( item, value ) {
+	$scope.colours = _.zipWith( colours, coloursObj, function( color, colorObj ) {
 		return _.defaults( {
-			colorObj: value,
+			colorObj: colorObj,
 			isSelected: false
-		}, item );
+		}, color );
 	} );
 
 	$scope.currentLevel = 0;
@@ -258,7 +304,6 @@ function mainCtrl( $scope, $timeout ) {
 	$scope.$on( 'round-complete', function( args ) {
 		$timeout(function() {
 		location.hash = '#modal';
-			
 		}, 500);
 	});
 
@@ -272,5 +317,8 @@ function mainCtrl( $scope, $timeout ) {
 }
 
 function toRgbString( rgbObj ) {
+	log('rgbObj')
+
+	log(rgbObj)
 	return 'rgb(' + rgbObj.r + ',' + rgbObj.g + ',' + rgbObj.b + ')'
 }

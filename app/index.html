@@ -32,7 +32,7 @@
               <li ng-repeat="clr in selectedColours" class="repeated">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item">
-                    <span>{{clr.name}}</span>
+                    <!--<span>{{clr.name}}</span>-->
                   </div>
                 </set-colour>
               </li>
@@ -44,7 +44,7 @@
             <ul class="clr-list">
               <li ng-repeat="clr in generatedColours" class="repeated">
                 <set-colour rgb="{{clr}}">
-                  <div class="clr-item">{{clr.name}}</div>
+                  <div class="clr-item"><!--{{clr.name}}--></div>
                 </set-colour>
               </li>
             </ul>
@@ -69,7 +69,7 @@
               <li ng-repeat="clr in colours">
                 <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
                   <div class="clr-item" ng-class="{'highlight': clr.isSelected}">
-                    <span>{{clr.name}}</span>
+                    <!--<span>{{clr.name}}</span>-->
                   </div>
                 </set-colour>
               </li>
@@ -79,7 +79,9 @@
             <ul class="clr-list">
               <li ng-repeat="clr in selectedColours" class="repeated">
                 <set-colour rgb="{{clr}}">
-                  <div class="clr-item">{{clr.name}}</div>
+                  <div class="clr-item">
+                    <!--{{clr.name}}-->
+                  </div>
                 </set-colour>
               </li>
             </ul>
