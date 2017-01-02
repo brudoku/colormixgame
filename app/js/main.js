@@ -152,9 +152,9 @@ function mainCtrl( $scope, $timeout ) {
 			id: "One",
 			colourCount: 2
 		},{
-			id: "One Two",
+			id: "One",
 			colourCount: 2
-		}/*,{
+		},{
 			id: "One",
 			colourCount: 2
 		}, {
@@ -175,7 +175,7 @@ function mainCtrl( $scope, $timeout ) {
 		}, {
 			id: "Three",
 			colourCount: 4
-		}*/];
+		}];
 
 	$scope.getCurrentLevelName = function(){
 		return $scope.levels[$scope.currentLevel].id

@@ -24,14 +24,16 @@
 
           <div class="result">
 
-            <h2 ng-if="isCorrect()">Correct!</h2>
-            <h2 ng-if="!isCorrect()">Wrong!</h2>
+            <h3 ng-if="isCorrect()">Correct!</h3>
+            <h3 ng-if="!isCorrect()">Wrong!</h3>
 
             <h3>You selected:</h3>
             <ul class="clr-list">
               <li ng-repeat="clr in selectedColours" class="repeated">
                 <set-colour rgb="{{clr}}">
-                  <div class="clr-item">{{clr.name}}</div>
+                  <div class="clr-item">
+                    <span>{{clr.name}}</span>
+                  </div>
                 </set-colour>
               </li>
             </ul>
@@ -60,14 +62,15 @@
         </div> -->
 
         <div class="row">
-
           <div class="twelve columns align-center">
             <h3>Current level: {{getCurrentLevelName()}}</h3>
             <h3>Mix <span class="white larger-text">{{getCurrentCount()}}</span> colours to match the colour below</h3>
             <ul class="clr-list">
               <li ng-repeat="clr in colours">
                 <set-colour rgb="{{clr}}" ng-click="addColour(clr)">
-                  <div class="clr-item" ng-class="{'highlight': clr.isSelected}">{{clr.name}}</div>
+                  <div class="clr-item" ng-class="{'highlight': clr.isSelected}">
+                    <span>{{clr.name}}</span>
+                  </div>
                 </set-colour>
               </li>
             </ul>
@@ -97,7 +100,7 @@
             -->
             <h3>Goal colour</h3>
             <div class="clr-item full-width" update-colour cell-name="goal">&nbsp;</div>
-            <button ng-click="initBoard()" class="full-width button-text">reset</button>
+            <!--<button ng-click="initBoard()" class="full-width button-text">reset</button>-->
           </div>
         </div>
 

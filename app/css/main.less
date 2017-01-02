@@ -1,17 +1,18 @@
-@grey: #363636;
-@offwhite: #ddd;
+@grey: #aeaeae;
+@offwhite: #252525;
 @white: #fff;
 
 body{ 
 	background-color: @offwhite;
 }
 
-h1{
+h1, h3{
 	color: @grey;
+  margin-top: 50px;
 }
 
 .container{
-	border: solid rgba(255,255,255,0.3) 1px;
+	// border: solid rgba(255,255,255,0.3) 1px;
 }
 
 li{
@@ -19,13 +20,26 @@ li{
 }
 
 .clr-item{
-	width: 75px;
-	height: 75px;
-	// display: inline-block;
-	border: solid 1px transparent;
-	font-weight: bold;
-   -webkit-transition: 800ms ease;
+	// width: 75px;
+	// height: 75px;
+	// // display: inline-block;
+	// border: solid 1px transparent;
+	// font-weight: bold;
+ //   -webkit-transition: 800ms ease;
+ //  perspective-origin: 90% 90%;
+
+  width: 75px;
+  height: 75px;
+  border: solid 1px transparent;
+  font-weight: bold;
+  -webkit-transition: 800ms ease;
   perspective-origin: 90% 90%;
+  border-radius: 30px;
+  vertical-align: middle;
+  margin: 3px;
+  box-shadow: 0px 5px 8px #141414;
+  border: solid 1px #ccc;
+  span{}
 }
 
 .clr-list{
@@ -44,7 +58,8 @@ li{
 }
 
 .full-width{
-	width: 100%;
+	    width: 50%;
+    margin: 0 auto;
 }
 
 .highlight {
@@ -138,8 +153,19 @@ ul.clr-list{
   }
 
   .remodal{
+    background: #252525;
+    border-radius: 20px;
   	// margin: 0 auto;
   	// margin-top: -400px;
+  }
+  .remodal-confirm{
+    color: #333;
+    background: #fff;
+    font-weight: bold;
+  }
+  .remodal-confirm:hover{
+    background: #aaa;
+
   }
 
 
