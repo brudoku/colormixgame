@@ -19,13 +19,13 @@
 
       <div class="container remodal-bg" ng-controller="mixer" >
       <!-- <a class="show_button" href="#modal">Show</a> -->
-        <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false, closeOnEscape: false">
+        <div class="remodal" data-remodal-id="end-of-round" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false, closeOnEscape: false">
           <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
 
           <div class="result">
 
-            <h3 ng-if="isCorrect()">Correct!</h3>
-            <h3 ng-if="!isCorrect()">Wrong!</h3>
+            <h3 ng-if="isCorrect()">Correct, you scored {{getCurrentScore()}}</h3>
+            <h3 ng-if="!isCorrect()">Wrong, you scored {{getCurrentScore()}}</h3>
 
             <h3>You selected:</h3>
             <ul class="clr-list">
@@ -50,11 +50,21 @@
             </ul>
 
             <h3>Goal colour:</h3>
-            <div class="clr-item mix width-45 repeated" update-colour cell-name="goal"></div>
+            <div class="clr-item width-45 repeated" update-colour cell-name="goal"></div>
 
           </div>
 
           <button data-remodal-action="confirm" class="remodal-confirm" ng-click="nextRound()">OK</button>
+        </div>
+
+        <div class="remodal" data-remodal-id="end-of-game" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false, closeOnEscape: false">
+          <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
+
+          <div class="result">
+            <h3>Your total {{getTotalScore()}}</h3>
+          </div>
+
+          <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
         </div>
         <!-- <div class="row">
           <div class="twelve columns align-center">

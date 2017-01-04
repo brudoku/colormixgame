@@ -1,8 +1,8 @@
 'use strict';
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-// var _ = require( 'lodash' );
-var _ = require('./lodash.custom.min.js');
+var _ = require( 'lodash' );
+// var _ = require('./lodash.custom.min.js');
 var log = (function() {
 	return function(msg) {
 		console.log(msg);
@@ -186,41 +186,60 @@ function mainCtrl($scope, $timeout) {
 	}
 	$scope.currentLevel = 0;
 	$scope.levels = [{
-		id: "One",
-		colourCount: 2
-	}, {
-		id: "One",
-		colourCount: 2
-	}, {
-		id: "One",
-		colourCount: 2
-	}, {
-		id: "Two",
-		colourCount: 3
-	}, {
-		id: "Two",
-		colourCount: 3
-	}, {
-		id: "Two",
-		colourCount: 3
-	}, {
-		id: "Three",
-		colourCount: 4
-	}, {
-		id: "Three",
-		colourCount: 4
-	}, {
-		id: "Three",
-		colourCount: 4
+			id: 1,
+			colourCount: 2
+		}, {
+			id: 1,
+			colourCount: 2
+		}, {
+			id: 1,
+			colourCount: 2
+		}, {
+			id: 2,
+			colourCount: 3
+		}, {
+			id: 2,
+			colourCount: 3
+		}, {
+			id: 2,
+			colourCount: 3
+		}, {
+			id: 3,
+			colourCount: 4
+		}, {
+			id: 3,
+			colourCount: 4
+		}, {
+			id: 3,
+			colourCount: 4
 	}];
+	$scope.getCurrentScore = function(){
+		return $scope.levels[$scope.currentLevel].score + '/' + $scope.levels[$scope.currentLevel].colourCount;
+	}
+	$scope.getTotalScore = function(){
+		var totalScore = _.reduce($scope.levels, function(sum, item){
+			if (!item.score){ return sum}
+			return  {colourCount: item.colourCount + sum.colourCount, score: item.score + sum.score}
+		});
+
+		return totalScore.score + '/' + totalScore.colourCount;
+	}
+	$scope.isGameFinished = function(){
+		return $scope.currentLevel == $scope.levels.length - 1;
+	}
 	$scope.getCurrentLevelName = function() {
-		return $scope.levels[$scope.currentLevel].id
+		return $scope.levels[$scope.currentLevel].id + ' of ' + $scope.levels[$scope.levels.length-1].id
 	}
 	$scope.getCurrentCount = function() {
-			return $scope.levels[$scope.currentLevel].colourCount
-		}
-		//resets to first round if all current levels are done
+		return $scope.levels[$scope.currentLevel].colourCount
+	}
+	//resets to first round if all current levels are done
 	$scope.nextRound = function() {
+		if($scope.isGameFinished()){
+			$timeout(function() {
+				location.hash = '#end-of-game';
+			}, 500);
+		}
 		if ($scope.currentLevel < $scope.levels.length - 1) {
 			$scope.currentLevel++;
 			$scope.initBoard($scope.levels[$scope.currentLevel]);
@@ -231,6 +250,11 @@ function mainCtrl($scope, $timeout) {
 	}
 	$scope.isCorrect = function() {
 		return _.isEqual(sortArrayById($scope.selectedColours), sortArrayById($scope.generatedColours));
+	}
+	$scope.calculateScore = function() {
+		var wrongUns = _.difference(sortArrayById($scope.selectedColours), sortArrayById($scope.generatedColours)).length;
+		var total = $scope.levels[$scope.currentLevel].colourCount;
+		return Math.abs(wrongUns - total);
 	}
 	$scope.isRoundComplete = function() {
 		var isComplete = ($scope.selectedColours.length == $scope.numberOfColours) && $scope.selectedColours.length > 0;
@@ -266,7 +290,6 @@ function mainCtrl($scope, $timeout) {
 			$scope.$broadcast("update-mix", cm.mixColours($scope.selectedColours).colorObj.rgbString());
 		}
 	}
-
 	function setGoal(count) {
 		$scope.generatedColours = cm.getFewRandom($scope.colours, count);
 		$scope.goal = cm.getColorObject(cm.mixColours($scope.generatedColours).colorObj.rgb()).rgbString();
@@ -283,8 +306,10 @@ function mainCtrl($scope, $timeout) {
 	})();
 	$scope.$on('round-complete', function(args) {
 		$timeout(function() {
-			location.hash = '#modal';
+			location.hash = '#end-of-round';
 		}, 500);
+		$scope.levels[$scope.currentLevel].score = $scope.calculateScore();
+
 	});
 	$scope.$on('update-mix', function(args) {
 		$scope.isRoundComplete();
@@ -296,3 +321,5 @@ function mainCtrl($scope, $timeout) {
 function toRgbString(rgbObj) {
 	return 'rgb(' + rgbObj.r + ',' + rgbObj.g + ',' + rgbObj.b + ')'
 }
+
+
