@@ -1,7 +1,7 @@
 'use strict';
 var ColorMixer = require('./ColorMixer.js');
 var cm = new ColorMixer();
-var _ = require( 'lodash' );
+// var _ = require( 'lodash' );
 // var _ = require('./lodash.custom.min.js');
 var log = (function() {
 	return function(msg) {
@@ -37,7 +37,7 @@ app.directive('updateColour', function() {
 		}
 	}
 });
-app.animation('.repeated', function($timeout) {
+app.animation('.my-animation-class', function($timeout) {
 	return {
 		enter: function(element, done) {
 			var $elem = $(element);
@@ -65,12 +65,54 @@ app.animation('.repeated', function($timeout) {
 			$timeout(function() {
 				done();
 			}, 500)
+		},
+		addClass:function(element){
+var $elem = $(element);
+			// $elem.css('position', 'relative');
+			$elem.snabbt({
+				easing: 'spring',
+				springConstant: 0.8,
+				springDeceleration: 0.8,
+				springMass: 10,
+				opacity: 1,
+				fromOpacity: 0,
+				fromPosition: [0, 100, 0],
+				position: [0, 0, 0],
+				duration: 250,
+				fromScale: [0.5, 0.5],
+				scale: [1, 1]
+			});			
 		}
 	}
 })
+app.directive('highlight', function(){})
+
+
+
+app.directive('shakediv',function($animate, $timeout) {
+ return {
+ link: function(scope, elem, attrs) {
+ 	scope.generateRandom = function() {
+		var $el = elem.find('.my-animation-class');
+		scope.randomValue = Math.random().toFixed(2);
+		if (scope.randomValue > 0.5) { //if >0.5 add the class
+			// $el.addClass('make');
+			$animate.addClass(elem.find('.my-animation-class'),'make');
+			$timeout(function() {
+				$animate.removeClass(elem.find('.my-animation-class'),'make');
+			// $el.removeClass('make');
+
+			}, 1000);
+		}
+	}
+ },
+ template: '<input type="button" ng-click="generateRandom()" value="Generate Random Value"/><h2 class="my-animation-class">xxx{{randomValue}}</h2>'
+ }
+});
 
 function mainCtrl($scope, $timeout) {
-	var colours = [{
+	var colours = [
+		{
 			id: 1,
 			name: 'violet'
 		}, {
@@ -91,7 +133,8 @@ function mainCtrl($scope, $timeout) {
 					name: 'red'
 				}*/
 	];
-	var colourVars = [{
+	var colourVars = [
+		{
 			rgb: [{
 				r: 247,
 				g: 0,
@@ -168,24 +211,8 @@ function mainCtrl($scope, $timeout) {
 					rgb: [{r: 255,g: 23,b: 23}, {r: 224,g: 47,b: 14}, {r: 215,g: 13,b: 37}]
 				}*/
 	];
-	$scope.initColours = function() {
-		var colourShades = _.zipWith(colours, colourVars, function(colorData, colorVar) {
-			var colorShade = colorVar.rgb[_.random(0, colorVar.rgb.length - 1)];
-			colorData.rgb = colorShade;
-			return colorData;
-		});
-		var coloursObj = _.map(colourShades, function(elem) {
-			return cm.getColorObject(elem.rgb);
-		});
-		$scope.colours = _.shuffle(_.zipWith(colourShades, coloursObj, function(color, colorObj) {
-			return _.defaults({
-				colorObj: colorObj,
-				isSelected: false
-			}, color);
-		}));
-	}
-	$scope.currentLevel = 0;
-	$scope.levels = [{
+	$scope.levels = [
+		{
 			id: 1,
 			colourCount: 2
 		}, {
@@ -213,6 +240,23 @@ function mainCtrl($scope, $timeout) {
 			id: 3,
 			colourCount: 4
 	}];
+	$scope.currentLevel = 0;
+	$scope.initColours = function() {
+		var colourShades = _.zipWith(colours, colourVars, function(colorData, colorVar) {
+			var colorShade = colorVar.rgb[_.random(0, colorVar.rgb.length - 1)];
+			colorData.rgb = colorShade;
+			return colorData;
+		});
+		var coloursObj = _.map(colourShades, function(elem) {
+			return cm.getColorObject(elem.rgb);
+		});
+		$scope.colours = _.shuffle(_.zipWith(colourShades, coloursObj, function(color, colorObj) {
+			return _.defaults({
+				colorObj: colorObj,
+				isSelected: false
+			}, color);
+		}));
+	}
 	$scope.getCurrentScore = function(){
 		return $scope.levels[$scope.currentLevel].score + '/' + $scope.levels[$scope.currentLevel].colourCount;
 	}
@@ -304,6 +348,14 @@ function mainCtrl($scope, $timeout) {
 			})
 		}
 	})();
+	$scope.showHint = function(){
+		log('showHint');
+		/*
+			get random unselectedcolour
+			broadcast 'hint' and id
+
+		*/
+	}
 	$scope.$on('round-complete', function(args) {
 		$timeout(function() {
 			location.hash = '#end-of-round';

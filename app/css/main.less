@@ -161,3 +161,26 @@ ul.clr-list{
   .remodal-bg.remodal-is-opened, .remodal-bg.remodal-is-opening{
     filter: blur(5px);
   }
+
+  .my-animation-class {
+  color:#fff;
+    
+ -webkit-animation-duration: 1s;
+ animation-duration: 1s;
+ -webkit-animation-fill-mode: both;
+ animation-fill-mode: both;
+}
+@-webkit-keyframes shake {
+ 0%, 100% {-webkit-transform: translateX(0);}
+ 10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+ 20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+}
+@keyframes shake {
+ 0%, 100% {transform: translateX(0);}
+ 10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+ 20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+.my-animation-class.shake {
+ -webkit-animation-name: shake;
+ animation-name: shake;
+}
