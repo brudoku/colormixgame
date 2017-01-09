@@ -37,7 +37,7 @@ app.directive('updateColour', function() {
 		}
 	}
 });
-app.animation('.my-animation-class', function($timeout) {
+app.animation('.anim-clr-elem', function($timeout) {
 	return {
 		enter: function(element, done) {
 			var $elem = $(element);

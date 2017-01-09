@@ -29,7 +29,7 @@
 
             <h3>You selected:</h3>
             <ul class="clr-list">
-              <li ng-repeat="clr in selectedColours" class="repeated">
+              <li ng-repeat="clr in selectedColours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item">
                     <!--<span>{{clr.name}}</span>-->
@@ -38,11 +38,11 @@
               </li>
             </ul>
             <h3>and got:</h3>
-            <div class="clr-item mix width-45 repeated" update-colour cell-name="mix"></div>
+            <div class="clr-item mix width-45 anim-clr-elem" update-colour cell-name="mix"></div>
 
             <h3>Answer:</h3>
             <ul class="clr-list">
-              <li ng-repeat="clr in generatedColours" class="repeated">
+              <li ng-repeat="clr in generatedColours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item"><!--{{clr.name}}--></div>
                 </set-colour>
@@ -50,7 +50,7 @@
             </ul>
 
             <h3>Goal colour:</h3>
-            <div class="clr-item width-45 repeated" update-colour cell-name="goal"></div>
+            <div class="clr-item width-45 anim-clr-elem" update-colour cell-name="goal"></div>
 
           </div>
 
@@ -76,7 +76,7 @@
             <h3>Mix {{getCurrentCount()}} colours to match the colour below</h3>
             <h5>Level {{getCurrentLevelName()}}</h5>
             <ul class="clr-list">
-              <li ng-repeat="clr in colours" class="repeated">
+              <li ng-repeat="clr in colours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item" ng-class="{'highlight': clr.isSelected}" ng-click="addColour(clr)">
                     <!--<span>{{clr.name}}</span>-->
@@ -87,7 +87,7 @@
 
             <h3>Selected</h3>
             <ul class="clr-list">
-              <li ng-repeat="clr in selectedColours" class="repeated">
+              <li ng-repeat="clr in selectedColours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item">
                     <!--{{clr.name}}-->
@@ -97,12 +97,12 @@
             </ul>
 
             <h3>Mixed output</h3>
-            <div class="clr-item mix width-45 repeated" update-colour cell-name="mix"></div>
+            <div class="clr-item mix width-45 anim-clr-elem" update-colour cell-name="mix"></div>
             <!--<div ng-if="isRoundComplete()" class="result">
                 <h3 ng-if="isCorrect()">Correct</h3>
                 <h3 ng-if="!isCorrect()">Wrong</h3>
                   <ul class="clr-list">
-                    <li ng-repeat="clr in generatedColours" class="repeated">
+                    <li ng-repeat="clr in generatedColours" class="anim-clr-elem">
                       <set-colour rgb="{{clr}}">
                         <div class="clr-item">{{clr.name}}</div>
                       </set-colour>
@@ -114,7 +114,8 @@
             <div class="clr-item width-45" update-colour cell-name="goal">&nbsp;</div>
             <!-- <button ng-click="initBoard()" class="width-45 button-text">reset</button> -->
             <button ng-click="showHint()" class="width-45 button-text">Show hint</button>
-<shakediv></shakediv>
+            <br />
+            <shakediv></shakediv>
           </div>
         </div>
 
