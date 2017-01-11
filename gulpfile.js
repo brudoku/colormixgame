@@ -12,6 +12,7 @@ var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
 var outputdir = './app/js';
 var less = require('gulp-less');
+var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('lint', function() {
   gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
@@ -81,9 +82,19 @@ gulp.task('browserify', function() {
     debug: true
   }))
   .pipe(concat('bundled.js'))
-  .pipe(uglify('bundled.js'))
+  // .pipe(uglify('bundled.js'))
   .pipe(gulp.dest('./app/js'));
 });
+
+gulp.task('autoprefix', function(){
+  console.log('xxxxxxxxxxxxxxxxxxxxxxxx');
+  gulp.src('./app/css/main.css')
+    .pipe(autoprefixer({
+        browsers: ['last 2 versions'],
+        cascade: false
+    }))
+    .pipe(gulp.dest('./app/css/main.css'))
+})
 
 gulp.task('browserifyDist', function() {
   gulp.src(['app/js/main.js'])
@@ -99,7 +110,7 @@ gulp.task('browserifyDist', function() {
 gulp.task('default', function() {
   runSequence(
     ['clean'],
-    ['less', 'connect', 'watch', 'browserify']
+    ['less', /*'autoprefix',*/ 'connect', 'watch', 'browserify']
   );
 });
 // *** build task *** //

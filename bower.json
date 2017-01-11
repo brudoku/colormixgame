@@ -15,5 +15,8 @@
     "jquery": "~2.1.1",
     "lodash": "^4.16.1",
     "angular": "1.5"
+  },
+  "resolutions": {
+    "jquery": "~2.1.1"
   }
 }

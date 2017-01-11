@@ -78,7 +78,7 @@
             <ul class="clr-list">
               <li ng-repeat="clr in colours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
-                  <div class="clr-item" ng-class="{'highlight': clr.isSelected}" ng-click="addColour(clr)">
+                  <div class="clr-item action" ng-class="{'highlight': clr.isSelected}" ng-click="addColour(clr)" highlight-hint colour-id="{{clr.id}}">
                     <!--<span>{{clr.name}}</span>-->
                   </div>
                 </set-colour>
@@ -113,7 +113,7 @@
             <h3>Goal colour</h3>
             <div class="clr-item width-45" update-colour cell-name="goal">&nbsp;</div>
             <!-- <button ng-click="initBoard()" class="width-45 button-text">reset</button> -->
-            <button ng-click="showHint()" class="width-45 button-text">Show hint</button>
+            <button ng-click="showHint()" class="button-text">Hint</button>
             <br />
             <shakediv></shakediv>
           </div>

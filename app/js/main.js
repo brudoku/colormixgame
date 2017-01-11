@@ -65,10 +65,42 @@ app.animation('.anim-clr-elem', function($timeout) {
 			$timeout(function() {
 				done();
 			}, 500)
-		},
-		addClass:function(element){
-var $elem = $(element);
-			// $elem.css('position', 'relative');
+		}
+	}
+})
+
+app.directive('highlightHint', function($animate, $timeout){
+	return {
+		link: function(scope, elem, attrs){
+			var $el = $(elem);
+			scope.$on('showhint', function(evt, colourId) {
+				if(colourId == attrs.colourId){
+				var match = _.find(scope.colours, function(clrObj){
+					return clrObj.id == colourId
+				});
+				match.isSelected = true;
+				// log(match)
+				// _.each(scope.colours, function(clrObj, index){
+				// 	if(clrObj.id == colourId){
+				// 		clrObj.isSelected = true;
+				// 	}
+				// })
+					$animate.addClass($el,'shake')
+	 				$timeout(function() {
+ 						$animate.removeClass($el,'shake');
+ 					}, 1000);
+				}
+		
+			});
+		}
+	}
+})
+
+app.animation('.achtung', function($timeout) {
+	return {
+		addClass: function(element, done) {
+			var $elem = $(element);
+			$elem.css('position', 'relative');
 			$elem.snabbt({
 				easing: 'spring',
 				springConstant: 0.8,
@@ -78,37 +110,31 @@ var $elem = $(element);
 				fromOpacity: 0,
 				fromPosition: [0, 100, 0],
 				position: [0, 0, 0],
-				duration: 250,
+				duration: 1000,
 				fromScale: [0.5, 0.5],
 				scale: [1, 1]
-			});			
+			});
 		}
 	}
-})
-app.directive('highlight', function(){})
-
-
-
-app.directive('shakediv',function($animate, $timeout) {
- return {
- link: function(scope, elem, attrs) {
- 	scope.generateRandom = function() {
-		var $el = elem.find('.my-animation-class');
-		scope.randomValue = Math.random().toFixed(2);
-		if (scope.randomValue > 0.5) { //if >0.5 add the class
-			// $el.addClass('make');
-			$animate.addClass(elem.find('.my-animation-class'),'make');
-			$timeout(function() {
-				$animate.removeClass(elem.find('.my-animation-class'),'make');
-			// $el.removeClass('make');
-
-			}, 1000);
-		}
-	}
- },
- template: '<input type="button" ng-click="generateRandom()" value="Generate Random Value"/><h2 class="my-animation-class">xxx{{randomValue}}</h2>'
- }
 });
+
+// app.directive('shakediv',function($animate, $timeout) {
+// 	return {
+// 	link: function(scope, elem, attrs) {
+// 		scope.generateRandom = function() {
+// 			var $el = elem.find('.achtung');
+// 			scope.randomValue = Math.random().toFixed(2);
+// 			if (scope.randomValue > 0.5) { //if >0.5 add the class
+// 				$animate.addClass($el,'ake');
+// 				$timeout(function() {
+// 					$animate.removeClass($el,'ake');
+// 				}, 1000);
+// 			}
+// 		}
+// 	},
+// 	template: '<input type="button" ng-click="generateRandom()" value="Generate Random Value"/><h2 class="achtung">{{randomValue}}</h2>'
+// 	}
+// });
 
 function mainCtrl($scope, $timeout) {
 	var colours = [
@@ -265,7 +291,6 @@ function mainCtrl($scope, $timeout) {
 			if (!item.score){ return sum}
 			return  {colourCount: item.colourCount + sum.colourCount, score: item.score + sum.score}
 		});
-
 		return totalScore.score + '/' + totalScore.colourCount;
 	}
 	$scope.isGameFinished = function(){
@@ -309,20 +334,18 @@ function mainCtrl($scope, $timeout) {
 		var levelObject = levelObj ? levelObj : $scope.levels[0];
 		$scope.initColours();
 		$scope.selectedColours = [];
-		$scope.unselectedColours = [];
+		$scope.unselectedColours = $scope.colours;
 		$scope.numberOfColours = levelObject.colourCount;
 		setGoal($scope.numberOfColours);
 		$timeout(function() {
-			$scope.$broadcast("update-mix", cm.getColorObject({
-				r: 221,
-				g: 221,
-				b: 221
-			}).rgbString());
+			$scope.$broadcast("update-mix", cm.getColorObject({r: 31,g: 31,b: 31}).rgbString());
 		}, 0);
 	}
 	$scope.addColour = function(clrObj) {
 		//if colour has been selected, do nothing.
 		if (_.includes($scope.selectedColours, clrObj)) return;
+		if (clrObj.isSelected == true) return;
+
 		clrObj.isSelected = true;
 		$scope.selectedColours.push(clrObj);
 		$scope.unselectedColours = cm.getUnusedItems($scope.colours, $scope.selectedColours);
@@ -349,19 +372,20 @@ function mainCtrl($scope, $timeout) {
 		}
 	})();
 	$scope.showHint = function(){
-		log('showHint');
-		/*
-			get random unselectedcolour
-			broadcast 'hint' and id
+		var unselectedUnhintedColours = _.filter($scope.unselectedColours, function(clrObj){
+			return clrObj.isSelected != true;
+		});
+		//if a hint has been used
+		if(unselectedUnhintedColours.length < $scope.unselectedColours.length) return;
 
-		*/
+		var colorToHighlight = unselectedUnhintedColours[_.random(0, unselectedUnhintedColours.length-1)].id;
+		$scope.$broadcast('showhint', colorToHighlight);
 	}
 	$scope.$on('round-complete', function(args) {
 		$timeout(function() {
 			location.hash = '#end-of-round';
 		}, 500);
 		$scope.levels[$scope.currentLevel].score = $scope.calculateScore();
-
 	});
 	$scope.$on('update-mix', function(args) {
 		$scope.isRoundComplete();
