@@ -8,19 +8,17 @@
     <title>COLR MIXR</title>
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <!-- styles-->
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/skeleton.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <link rel="stylesheet" href="bower_components/remodal/dist/remodal.css">
+    <link rel="stylesheet" href="bower_components/remodal/dist/remodal-default-theme.css">
     <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
   <div ng-app="app" id="app">
 
       <div class="container remodal-bg" ng-controller="mixer" >
-      <!-- <a class="show_button" href="#modal">Show</a> -->
         <div class="remodal" data-remodal-id="end-of-round" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false, closeOnEscape: false">
-          <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
 
           <div class="result">
 
@@ -32,7 +30,6 @@
               <li ng-repeat="clr in selectedColours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item">
-                    <!--<span>{{clr.name}}</span>-->
                   </div>
                 </set-colour>
               </li>
@@ -44,7 +41,7 @@
             <ul class="clr-list">
               <li ng-repeat="clr in generatedColours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
-                  <div class="clr-item"><!--{{clr.name}}--></div>
+                  <div class="clr-item"></div>
                 </set-colour>
               </li>
             </ul>
@@ -58,7 +55,6 @@
         </div>
 
         <div class="remodal" data-remodal-id="end-of-game" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc" data-remodal-options="closeOnOutsideClick: false, closeOnEscape: false">
-          <!-- <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button> -->
 
           <div class="result">
             <h3>Your total {{getTotalScore()}}</h3>
@@ -66,10 +62,6 @@
 
           <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
         </div>
-        <!-- <div class="row">
-          <div class="twelve columns align-center">
-          </div>
-        </div> -->
 
         <div class="row">
           <div class="twelve columns align-center">
@@ -79,7 +71,6 @@
               <li ng-repeat="clr in colours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item action" ng-class="{'highlight': clr.isSelected}" ng-click="addColour(clr)" highlight-hint colour-id="{{clr.id}}">
-                    <!--<span>{{clr.name}}</span>-->
                   </div>
                 </set-colour>
               </li>
@@ -90,7 +81,6 @@
               <li ng-repeat="clr in selectedColours" class="anim-clr-elem">
                 <set-colour rgb="{{clr}}">
                   <div class="clr-item">
-                    <!--{{clr.name}}-->
                   </div>
                 </set-colour>
               </li>
@@ -98,21 +88,9 @@
 
             <h3>Mixed output</h3>
             <div class="clr-item mix width-45 anim-clr-elem" update-colour cell-name="mix"></div>
-            <!--<div ng-if="isRoundComplete()" class="result">
-                <h3 ng-if="isCorrect()">Correct</h3>
-                <h3 ng-if="!isCorrect()">Wrong</h3>
-                  <ul class="clr-list">
-                    <li ng-repeat="clr in generatedColours" class="anim-clr-elem">
-                      <set-colour rgb="{{clr}}">
-                        <div class="clr-item">{{clr.name}}</div>
-                      </set-colour>
-                    </li>
-                  </ul>
-                </div>
-            -->
+
             <h3>Goal colour</h3>
             <div class="clr-item width-45" update-colour cell-name="goal">&nbsp;</div>
-            <!-- <button ng-click="initBoard()" class="width-45 button-text">reset</button> -->
             <button ng-click="showHint()" class="button-text">Hint</button>
             <br />
             <shakediv></shakediv>
@@ -124,11 +102,12 @@
 
     <!-- scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="./js/snabbt.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/snabbt.js/snabbt.min.js"></script>
+    <script src="bower_components/remodal/dist/remodal.min.js"></script>
     <script src="./js/bundled.js"></script>
   </body>
 </html>
+

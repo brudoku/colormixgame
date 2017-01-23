@@ -1,5 +1,5 @@
 {
-  "name": "gulp-browserify-jquery-d3-lodash",
+  "name": "Color Mixing Puzzle",
   "version": "0.0.0",
   "authors": [
     "David Okunlola <dnamuzik@gmail.com>"
@@ -11,12 +11,10 @@
     "app/bower_components"
   ],
   "dependencies": {
-    "d3": "^4.2.5",
     "jquery": "~2.1.1",
     "lodash": "^4.16.1",
-    "angular": "1.5"
-  },
-  "resolutions": {
-    "jquery": "~2.1.1"
+    "angular": "1.5",
+    "angular-animate": "1.6.1",
+    "snabbt.js": "0.6.4"
   }
 }
