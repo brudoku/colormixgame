@@ -1,0 +1,101 @@
+{
+  "name": "brudoku/colormixgame",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "",
+  "branch": "",
+  "style": {
+    "name": "Future",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/BannerHeader",
+      "article": "article/BasicArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "\"Avenir Next\", Helvetica, sans-serif",
+    "heading": {
+      "fontWeight": 500,
+      "textTransform": "uppercase",
+      "letterSpacing": "0.2em"
+    },
+    "alternativeText": {
+      "textTransform": "uppercase",
+      "fontWeight": 400,
+      "letterSpacing": "0.2em",
+      "opacity": 0.75
+    },
+    "colors": {
+      "text": "#333",
+      "background": "#fff",
+      "primary": "#666",
+      "secondary": "#888",
+      "highlight": "#1f80ff",
+      "muted": "#f6f6f6",
+      "border": "#eee"
+    },
+    "layout": {
+      "centered": true,
+      "maxWidth": 1024,
+      "bannerHeight": "80vh"
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "http://codepen.io/brudoku/full/woOeLm",
+          "text": "Home"
+        },
+        {
+          "href": "https://github.com/brudoku/colormixgame",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://npmjs.com/package/colour mixing puzzle",
+          "text": "npm"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "colormixgame",
+      "subhead": "Puzzle game demonstrating natural mixing of colours in the browser",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "colormixgame: Puzzle game demonstrating natural mixing of colours in the browser",
+          "url": "http://codepen.io/brudoku/full/woOeLm"
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "brudoku",
+          "repo": "colormixgame"
+        }
+      ],
+      "text": "v0.0.1"
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p>Puzzle game that tests your ability to mix colours, and demonstrates the\nmixing of colours in the browser as would happen in nature.</p>\n<p>See <a href=\"http://stackoverflow.com/questions/14819058/mixing-two-colors-naturally-in-javascript\">http://stackoverflow.com/questions/14819058/mixing-two-colors-naturally-in-javascript</a>\nto read a discussion on mixing colours programmatically.</p>\n<p>Uses functionality from ryb-color-mixer (<a href=\"https://github.com/camme/ryb-color-mixer\">https://github.com/camme/ryb-color-mixer</a>)\nand rgb2ryb (<a href=\"https://github.com/bahamas10/node-rgb2ryb\">https://github.com/bahamas10/node-rgb2ryb</a>)</p>\n<p>Try it here:\n<a href=\"http://codepen.io/brudoku/pen/woOeLm\">http://codepen.io/brudoku/pen/woOeLm</a></p>\n"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/brudoku/colormixgame",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/brudoku",
+          "text": "brudoku"
+        }
+      ]
+    }
+  ]
+}
